@@ -39,11 +39,35 @@ class EnumEnumerator
 public:
 	EnumIterator<Enum> begin() const
 	{
-		return first;
+		if (includeFirst == true)
+		{
+			return first;
+		}
+		else
+		{
+			return static_cast<Enum>(std::underlying_type<Enum>::type(first) + 1);
+		}
 	}
 
 	EnumIterator<Enum> end() const
 	{
-		return static_cast<Enum>(std::underlying_type<Enum>::type(last) + 1);
+		if (includeLast == true)
+		{
+			return static_cast<Enum>(std::underlying_type<Enum>::type(last) + 1);
+		}
+		else
+		{
+			return last;
+		}
 	}
+
+	void Init(bool includeFirst, bool includeLast)
+	{
+		this->includeFirst = includeFirst;
+		this->includeLast = includeLast;
+	}
+
+private:
+	bool includeFirst = true;
+	bool includeLast = true;
 };
