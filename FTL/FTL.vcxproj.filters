@@ -4,10 +4,16 @@
     <Filter Include="EnumEnumerator">
       <UniqueIdentifier>{862e4f7d-a3b7-4c04-b077-439639572b8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Property">
+      <UniqueIdentifier>{1744dcfb-edbe-4f6b-ae41-1642bbbab26e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnumEnumerator.h">
       <Filter>EnumEnumerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Property.h">
+      <Filter>Property</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
