@@ -1,167 +1,170 @@
 #pragma once
 
-template <class Type>
-class DefaultSetter
+namespace FTL
 {
-public:
-	Type operator()(const Type& rhs)
+	template <class Type>
+	class DefaultSetter
 	{
-		return rhs;
-	}
-};
+	public:
+		Type operator()(const Type& rhs)
+		{
+			return rhs;
+		}
+	};
 
-template <class Type>
-class DefaultGetter
-{
-public:
-	Type operator()(const Type& rhs)
+	template <class Type>
+	class DefaultGetter
 	{
-		return rhs;
-	}
-};
+	public:
+		Type operator()(const Type& rhs)
+		{
+			return rhs;
+		}
+	};
 
-// Declare
-template <class OwnerClass, class Type, bool setPrivate, bool getPrivate>
-class Property;
+	// Declare
+	template <class OwnerClass, class Type, bool setPrivate, bool getPrivate>
+	class Property;
 
-// Both public
-template <class OwnerClass, class Type>
-class Property<OwnerClass, Type, false, false>
-{
-public:
-	Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
+	// Both public
+	template <class OwnerClass, class Type>
+	class Property<OwnerClass, Type, false, false>
 	{
+	public:
+		Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
+		{
 
-	}
+		}
 
-	Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		{
+			this->setter = setter;
+			this->getter = getter;
+		}
+
+		Type operator=(const Type& rhs)
+		{
+			return value = setter(rhs);
+		}
+
+		operator Type() const
+		{
+			return getter(value);
+		}
+
+	private:
+		Type value;
+
+		std::function<Type(Type)> setter;
+		std::function<Type(Type)> getter;
+	};
+
+	// Setter private, getter public
+	template <class OwnerClass, class Type>
+	class Property<OwnerClass, Type, true, false>
 	{
-		this->setter = setter;
-		this->getter = getter;
-	}
+	public:
+		friend OwnerClass;
 
-	Type operator=(const Type& rhs)
+		Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
+		{
+
+		}
+
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		{
+			this->setter = setter;
+			this->getter = getter;
+		}
+
+	private:
+		Type operator=(const Type& rhs)
+		{
+			return value = setter(rhs);
+		}
+
+	public:
+		operator Type() const
+		{
+			return getter(value);
+		}
+
+	private:
+		Type value;
+
+		std::function<Type(Type)> setter;
+		std::function<Type(Type)> getter;
+	};
+
+	// Setter public, Getter private
+	template <class OwnerClass, class Type>
+	class Property<OwnerClass, Type, false, true>
 	{
-		return value = setter(rhs);
-	}
+	public:
+		friend OwnerClass;
 
-	operator Type() const
+		Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
+		{
+
+		}
+
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		{
+			this->setter = setter;
+			this->getter = getter;
+		}
+
+		Type operator=(const Type& rhs)
+		{
+			return value = setter(rhs);
+		}
+
+	private:
+		operator Type() const
+		{
+			return getter(value);
+		}
+
+	private:
+		Type value;
+
+		std::function<Type(Type)> setter;
+		std::function<Type(Type)> getter;
+	};
+
+	// Both private
+	template <class OwnerClass, class Type>
+	class Property<OwnerClass, Type, true, true>
 	{
-		return getter(value);
-	}
+	public:
+		friend OwnerClass;
 
-private:
-	Type value;
+		Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
+		{
 
-	std::function<Type(Type)> setter;
-	std::function<Type(Type)> getter;
-};
+		}
 
-// Setter private, getter public
-template <class OwnerClass, class Type>
-class Property<OwnerClass, Type, true, false>
-{
-public:
-	friend OwnerClass;
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		{
+			this->setter = setter;
+			this->getter = getter;
+		}
 
-	Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
-	{
+	private:
+		Type operator=(const Type& rhs)
+		{
+			return value = setter(rhs);
+		}
 
-	}
+		operator Type() const
+		{
+			return getter(value);
+		}
 
-	Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-	{
-		this->setter = setter;
-		this->getter = getter;
-	}
+	private:
+		Type value;
 
-private:
-	Type operator=(const Type& rhs)
-	{
-		return value = setter(rhs);
-	}
-
-public:
-	operator Type() const
-	{
-		return getter(value);
-	}
-
-private:
-	Type value;
-
-	std::function<Type(Type)> setter;
-	std::function<Type(Type)> getter;
-};
-
-// Setter public, Getter private
-template <class OwnerClass, class Type>
-class Property<OwnerClass, Type, false, true>
-{
-public:
-	friend OwnerClass;
-
-	Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
-	{
-
-	}
-
-	Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-	{
-		this->setter = setter;
-		this->getter = getter;
-	}
-
-	Type operator=(const Type& rhs)
-	{
-		return value = setter(rhs);
-	}
-
-private:
-	operator Type() const
-	{
-		return getter(value);
-	}
-
-private:
-	Type value;
-
-	std::function<Type(Type)> setter;
-	std::function<Type(Type)> getter;
-};
-
-// Both private
-template <class OwnerClass, class Type>
-class Property<OwnerClass, Type, true, true>
-{
-public:
-	friend OwnerClass;
-
-	Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
-	{
-
-	}
-
-	Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-	{
-		this->setter = setter;
-		this->getter = getter;
-	}
-
-private:
-	Type operator=(const Type& rhs)
-	{
-		return value = setter(rhs);
-	}
-
-	operator Type() const
-	{
-		return getter(value);
-	}
-
-private:
-	Type value;
-
-	std::function<Type(Type)> setter;
-	std::function<Type(Type)> getter;
-};
+		std::function<Type(Type)> setter;
+		std::function<Type(Type)> getter;
+	};
+}
