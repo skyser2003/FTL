@@ -36,7 +36,7 @@ namespace FTL
 
 		}
 
-		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : value(Type())
 		{
 			this->setter = setter;
 			this->getter = getter;
@@ -71,7 +71,7 @@ namespace FTL
 
 		}
 
-		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : value(Type())
 		{
 			this->setter = setter;
 			this->getter = getter;
@@ -103,12 +103,12 @@ namespace FTL
 	public:
 		friend OwnerClass;
 
-		Property() :Property(DefaultSetter<Type>(), DefaultGetter<Type>())
+		Property() : Property(DefaultSetter<Type>(), DefaultGetter<Type>())
 		{
 
 		}
 
-		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : value(Type())
 		{
 			this->setter = setter;
 			this->getter = getter;
@@ -144,7 +144,7 @@ namespace FTL
 
 		}
 
-		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+		Property(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : value(Type())
 		{
 			this->setter = setter;
 			this->getter = getter;
