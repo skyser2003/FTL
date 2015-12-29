@@ -68,7 +68,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EnumEnumerator.h" />
+    <ClInclude Include="IsPointer.h" />
+    <ClInclude Include="PointerDataType.h" />
     <ClInclude Include="Property.h" />
+    <ClInclude Include="VoidTemplate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

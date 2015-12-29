@@ -7,6 +7,9 @@
     <Filter Include="Property">
       <UniqueIdentifier>{1744dcfb-edbe-4f6b-ae41-1642bbbab26e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TypeTrait">
+      <UniqueIdentifier>{cc25f8e9-48a0-4d35-9bfd-19136ee346d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnumEnumerator.h">
@@ -14,6 +17,15 @@
     </ClInclude>
     <ClInclude Include="Property.h">
       <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="IsPointer.h">
+      <Filter>TypeTrait</Filter>
+    </ClInclude>
+    <ClInclude Include="VoidTemplate.h">
+      <Filter>TypeTrait</Filter>
+    </ClInclude>
+    <ClInclude Include="PointerDataType.h">
+      <Filter>TypeTrait</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

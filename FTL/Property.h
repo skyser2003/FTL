@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IsPointer.h"
+
 namespace FTL
 {
 	template <class Type>

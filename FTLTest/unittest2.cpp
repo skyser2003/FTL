@@ -12,11 +12,18 @@ namespace FTLTest
 	class TestClass
 	{
 	public:
+		// Value
 		Property<TestClass, int, false, false> defaultProp;
 		Property<TestClass, int, true, true> prop1{ [](int val) {return val*val; }, DefaultGetter<int>() };
 		Property<TestClass, int, true, false> prop2{ [](int val) {return val*val; }, DefaultGetter<int>() };
 		Property<TestClass, int, false, true> prop3{ [](int val) {return val*val; }, DefaultGetter<int>() };
 		Property<TestClass, int, false, false> prop4{ [](int val) {return val*val; }, DefaultGetter<int>() };
+
+		// Pointer
+		Property<TestClass, int*, false, false> ptrProp;
+
+		// Smart Pointer
+		Property<TestClass, shared_ptr<int>, false, false> smptrProp;
 
 		void Test()
 		{
