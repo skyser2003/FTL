@@ -19,13 +19,10 @@ namespace FTL
 	template <class T>
 	class PointerDataType<T, true>
 	{
-
+	public:
+		typedef T type;
 	};
-
-
+	
 	template <class T>
-	class PointerDataType<T, IsPointer<T>::value>
-	{
-
-	};
+	using PointerType = typename PointerDataType<decltype(*declval<T>()), IsPointer<T>::value>::type;
 }

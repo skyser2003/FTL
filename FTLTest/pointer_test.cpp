@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 
 #include "PointerDataType.h"
+#include "HelperFunction.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -14,6 +15,8 @@ namespace FTLTest
 	public:
 		TEST_METHOD(TestMethod1)
 		{
+			PointerType<int*> t1;
+			Log(t1);
 		}
 	};
 }
