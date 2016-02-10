@@ -15,8 +15,14 @@ namespace FTLTest
 	public:
 		TEST_METHOD(TestMethod1)
 		{
-			PointerType<int*> t1;
-			Log(t1);
+			unique_ptr<int> ptpt;
+			int a = 3;
+			int* pA = &a;
+			PointerDataType<int*> t1 = &a;
+			int*& ppA = pA;
+			*ppA;
+			decltype((*ppA)) pppA = *pA;
+			//Log(t1);
 		}
 	};
 }

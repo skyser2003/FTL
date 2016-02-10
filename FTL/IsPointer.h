@@ -7,8 +7,8 @@
 namespace FTL
 {
 	template <class, class = void>
-	struct IsPointer : public false_type {};
+	struct IsPointer : public std::false_type {};
 
 	template <class T>
-	struct IsPointer<T, VoidTemplate<decltype(*declval<T>())>> : public true_type {};
+	struct IsPointer<T, VoidTemplate<decltype(*T())>> : public std::true_type {};
 }

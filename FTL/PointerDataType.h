@@ -5,24 +5,24 @@
 namespace FTL
 {
 	template <class T, bool isPointer>
-	class PointerDataType;
+	class _PointerDataType;
 
 	template <class T>
-	class PointerDataType<T, false>
+	class _PointerDataType<T, false>
 	{
-		PointerDataType()
+		_PointerDataType()
 		{
 			static_assert(false, "T should be either pointer or pointer-like object.");
 		}
 	};
 
 	template <class T>
-	class PointerDataType<T, true>
+	class _PointerDataType<T, true>
 	{
 	public:
 		typedef T type;
 	};
-	
+
 	template <class T>
-	using PointerType = typename PointerDataType<decltype(*declval<T>()), IsPointer<T>::value>::type;
+	using PointerDataType = typename _PointerDataType<T, IsPointer<T>::value>::type;
 }
