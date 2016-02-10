@@ -41,5 +41,8 @@
     <ClCompile Include="HelperFunction.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
+    <ClCompile Include="pointer_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
