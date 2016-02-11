@@ -16,8 +16,8 @@ namespace FTLTest
 		Property<TestClass, int, false, false> defaultProp;
 
 		Property<TestClass, int, true, true> prop1{ [](int val) {return val*val; }, DefaultGetter<int>() };
-		Property<TestClass, int, true, false> prop2{ [](int val) {return val*val; }, DefaultGetter<int>() };
-		Property<TestClass, int, false, true> prop3{ [](int val) {return val*val; }, DefaultGetter<int>() };
+		Property<TestClass, int, false, true> prop2{ [](int val) {return val*val; }, DefaultGetter<int>() };
+		Property<TestClass, int, true, false> prop3{ [](int val) {return val*val; }, DefaultGetter<int>() };
 		Property<TestClass, int, false, false> prop4{ [](int val) {return val*val; }, DefaultGetter<int>() };
 
 		int pD, p1, p2, p3, p4;
@@ -25,8 +25,8 @@ namespace FTLTest
 		Property<TestClass, int*, false, false> pDefaultProp{ &pD };
 
 		Property<TestClass, int*, true, true> pProp1{ [](int* val) {return val; }, DefaultGetter<int*>(), &p1 };
-		Property<TestClass, int*, true, false> pProp2{ [](int* val) {return val; }, DefaultGetter<int*>(), &p2 };
-		Property<TestClass, int*, false, true> pProp3{ [](int* val) {return val; }, DefaultGetter<int*>(), &p3 };
+		Property<TestClass, int*, false, true> pProp2{ [](int* val) {return val; }, DefaultGetter<int*>(), &p2 };
+		Property<TestClass, int*, true, false> pProp3{ [](int* val) {return val; }, DefaultGetter<int*>(), &p3 };
 		Property<TestClass, int*, false, false> pProp4{ [](int* val) {return val; }, DefaultGetter<int*>(), &p4 };
 
 		// Pointer

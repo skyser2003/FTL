@@ -22,7 +22,7 @@ namespace FTLTest
 			int*& ppA = pA;
 			*ppA;
 			decltype((*ppA)) pppA = *pA;
-			//Log(t1);
+			Log(*t1);
 		}
 	};
 }

@@ -137,11 +137,11 @@ namespace FTL
 	};
 
 	// Declare
-	template <class OwnerClass, class Type, bool setPrivate, bool getPrivate, bool isPointer>
+	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, bool isPointer>
 	class _Property;
 
-	template <class OwnerClass, class Type, bool setPrivate, bool getPrivate>
-	using Property = _Property<OwnerClass, Type, setPrivate, getPrivate, IsPointer<Type>::value>;
+	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate>
+	using Property = _Property<OwnerClass, Type, isGetterPrivate, isSetterPrivate, IsPointer<Type>::value>;
 
 	// Non-pointer specialization : Both public
 	template <class OwnerClass, class Type>
@@ -165,7 +165,7 @@ namespace FTL
 
 	// Non-pointer specialization : Setter private, getter public
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, true, false, false> : public _PropertyBase<OwnerClass, Type, false>
+	class _Property<OwnerClass, Type, false, true, false> : public _PropertyBase<OwnerClass, Type, false>
 	{
 	public:
 		friend OwnerClass;
@@ -187,7 +187,7 @@ namespace FTL
 
 	// Non-pointer specialization : Setter public, Getter private
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, false, true, false> : public _PropertyBase<OwnerClass, Type, false>
+	class _Property<OwnerClass, Type, true, false, false> : public _PropertyBase<OwnerClass, Type, false>
 	{
 	public:
 		friend OwnerClass;
@@ -269,7 +269,7 @@ namespace FTL
 
 	// Pointer specialization : Setter private, getter public
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, true, false, true> : public _PropertyBase<OwnerClass, Type, true>
+	class _Property<OwnerClass, Type, false, true, true> : public _PropertyBase<OwnerClass, Type, true>
 	{
 	public:
 		friend OwnerClass;
@@ -311,7 +311,7 @@ namespace FTL
 
 	// Pointer specialization : Setter public, getter private
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, false, true, true> : public _PropertyBase<OwnerClass, Type, true>
+	class _Property<OwnerClass, Type, true, false, true> : public _PropertyBase<OwnerClass, Type, true>
 	{
 	public:
 		friend OwnerClass;
