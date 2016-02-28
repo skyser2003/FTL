@@ -13,7 +13,7 @@ namespace FTLTest
 	TEST_CLASS(PointerTest)
 	{
 	public:
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(PointerTest1)
 		{
 			unique_ptr<int> ptpt;
 			int a = 3;
