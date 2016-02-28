@@ -10,6 +10,7 @@ namespace FTL
 	template <class T>
 	class _PointerDataType<T, false>
 	{
+	public:
 		_PointerDataType()
 		{
 			static_assert(false, "T should be either pointer or pointer-like object.");
