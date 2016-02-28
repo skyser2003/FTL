@@ -10,5 +10,5 @@ namespace FTL
 	struct IsPointer : public std::false_type {};
 
 	template <class T>
-	struct IsPointer<T, VoidTemplate<decltype(*T())>> : public std::true_type {};
+	struct IsPointer<T, VoidTemplate<decltype(*declval<T>())>> : public std::true_type{};
 }
