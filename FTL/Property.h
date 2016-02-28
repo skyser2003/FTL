@@ -1,6 +1,5 @@
 #pragma once
 
-#include "IsPointer.h"
 #include "PointerDataType.h"
 
 namespace FTL
@@ -32,6 +31,9 @@ namespace FTL
 	template <class OwnerClass, class Type>
 	class _PropertyBase<OwnerClass, Type, false>
 	{
+	public:
+		typedef Type Type;
+
 	protected:
 		_PropertyBase() : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
 		{
@@ -76,6 +78,9 @@ namespace FTL
 	template <class OwnerClass, class Type>
 	class _PropertyBase<OwnerClass, Type, true>
 	{
+	public:
+		typedef Type Type;
+
 	protected:
 		_PropertyBase() : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
 		{
