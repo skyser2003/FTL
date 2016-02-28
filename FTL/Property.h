@@ -57,6 +57,11 @@ namespace FTL
 
 		}
 
+		Type get() const
+		{
+			return getter(value);
+		}
+
 		Type& operator=(const Type& rhs)
 		{
 			return value = setter(rhs);
@@ -64,7 +69,7 @@ namespace FTL
 
 		operator Type() const
 		{
-			return getter(value);
+			return get();
 		}
 
 	private:
@@ -104,6 +109,11 @@ namespace FTL
 
 		}
 
+		Type get() const
+		{
+			return getter(value);
+		}
+
 		Type& operator=(const Type& rhs)
 		{
 			return value = setter(rhs);
@@ -111,7 +121,7 @@ namespace FTL
 
 		operator Type() const
 		{
-			return getter(value);
+			return get();
 		}
 
 		decltype(*Type()) operator*()
@@ -157,6 +167,11 @@ namespace FTL
 
 		using _PropertyBase::_PropertyBase;
 
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
+
 		decltype(auto) operator=(const Type& rhs)
 		{
 			return _PropertyBase::operator=(rhs);
@@ -176,6 +191,11 @@ namespace FTL
 		friend OwnerClass;
 
 		using _PropertyBase::_PropertyBase;
+
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
 
 	private:
 		decltype(auto) operator=(const Type& rhs)
@@ -205,6 +225,11 @@ namespace FTL
 		}
 
 	private:
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
+
 		operator Type() const
 		{
 			return _PropertyBase::operator Type();
@@ -221,6 +246,11 @@ namespace FTL
 		using _PropertyBase::_PropertyBase;
 
 	private:
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
+
 		decltype(auto) operator=(const Type& rhs)
 		{
 			return _PropertyBase::operator=(rhs);
@@ -240,6 +270,11 @@ namespace FTL
 		friend OwnerClass;
 
 		using _PropertyBase::_PropertyBase;
+
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
 
 		decltype(auto) operator=(const Type& rhs)
 		{
@@ -280,6 +315,11 @@ namespace FTL
 		friend OwnerClass;
 
 		using _PropertyBase::_PropertyBase;
+
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
 
 	private:
 		decltype(auto) operator=(const Type& rhs)
@@ -329,6 +369,11 @@ namespace FTL
 		}
 
 	private:
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
+
 		operator Type() const
 		{
 			return _PropertyBase::operator Type();
@@ -365,6 +410,11 @@ namespace FTL
 		using _PropertyBase::_PropertyBase;
 
 	private:
+		decltype(auto) get() const
+		{
+			return _PropertyBase::get();
+		}
+
 		decltype(auto) operator=(const Type& rhs)
 		{
 			return _PropertyBase::operator=(rhs);
