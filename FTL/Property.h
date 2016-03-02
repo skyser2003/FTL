@@ -26,51 +26,51 @@ namespace FTL
 
 	// Return type specialization
 	template <class Type, bool isFundamental = std::is_fundamental<Type>::value>
-	class _PropertyReturnType;
+	class PropertyReturnType;
 
 	template <class Type>
-	class _PropertyReturnType<Type, true>
+	class PropertyReturnType<Type, true>
 	{
 	public:
 		typedef Type Type;
 	};
 
 	template <class Type>
-	class _PropertyReturnType<Type, false>
+	class PropertyReturnType<Type, false>
 	{
 	public:
 		typedef Type& Type;
 	};
 
-	template <class OwnerClass, class Type, bool IsPointer>
-	class _PropertyBase;
+	template <class OwnerClass, class Type, bool IsPointer = IsPointer<Type>::value>
+	class PropertyBase;
 
 	// Base class non-pointer specialization
 	template <class OwnerClass, class Type>
-	class _PropertyBase<OwnerClass, Type, false>
+	class PropertyBase<OwnerClass, Type, false>
 	{
 	public:
 		typedef Type Type;
-		typedef typename _PropertyReturnType<Type>::Type ReturnType;
+		typedef typename PropertyReturnType<Type>::Type ReturnType;
 
 	protected:
-		_PropertyBase() : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
+		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
 		{
 
 		}
 
-		_PropertyBase(Type value) : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), value)
+		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), value)
 		{
 
 		}
 
-		_PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-			: _PropertyBase(setter, getter, Type())
+		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+			: PropertyBase(setter, getter, Type())
 		{
 
 		}
 
-		_PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter, Type value)
+		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter, Type value)
 			: setter(setter), getter(getter), value(value)
 		{
 
@@ -100,30 +100,30 @@ namespace FTL
 
 	// Base class pointer specialization
 	template <class OwnerClass, class Type>
-	class _PropertyBase<OwnerClass, Type, true>
+	class PropertyBase<OwnerClass, Type, true>
 	{
 	public:
 		typedef Type Type;
-		typedef typename _PropertyReturnType<Type>::Type ReturnType;
+		typedef typename PropertyReturnType<Type>::Type ReturnType;
 
 	protected:
-		_PropertyBase() : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
+		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
 		{
 
 		}
 
-		_PropertyBase(Type value) : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), value)
+		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), value)
 		{
 
 		}
 
-		_PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-			: _PropertyBase(setter, getter, Type())
+		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
+			: PropertyBase(setter, getter, Type())
 		{
 
 		}
 
-		_PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter, Type value)
+		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter, Type value)
 			: setter(setter), getter(getter), value(value)
 		{
 
@@ -172,297 +172,294 @@ namespace FTL
 	};
 
 	// Declare
-	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, bool isPointer>
-	class _Property;
-
-	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate>
-	using Property = _Property<OwnerClass, Type, isGetterPrivate, isSetterPrivate, IsPointer<Type>::value>;
+	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, bool isPointer = IsPointer<Type>::value>
+	class Property;
 
 	// Non-pointer specialization : Both public
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, false, false, false> : public _PropertyBase<OwnerClass, Type, false>
+	class Property<OwnerClass, Type, false, false, false> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 	};
 
 	// Non-pointer specialization : Setter private, getter public
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, false, true, false> : public _PropertyBase<OwnerClass, Type, false>
+	class Property<OwnerClass, Type, false, true, false> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 	private:
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 	public:
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 	};
 
 	// Non-pointer specialization : Setter public, Getter private
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, true, false, false> : public _PropertyBase<OwnerClass, Type, false>
+	class Property<OwnerClass, Type, true, false, false> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 	private:
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 	};
 
 	// Non-pointer specialization : Both private
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, true, true, false> : public _PropertyBase<OwnerClass, Type, false>
+	class Property<OwnerClass, Type, true, true, false> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 	private:
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 	};
 
 	// Pointer specialization : Both public
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, false, false, true> : public _PropertyBase<OwnerClass, Type, true>
+	class Property<OwnerClass, Type, false, false, true> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 
 		decltype(auto) operator*()
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 
 		const decltype(*Type()) operator*() const
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		const decltype(*Type()) operator->() const
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Setter private, getter public
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, false, true, true> : public _PropertyBase<OwnerClass, Type, true>
+	class Property<OwnerClass, Type, false, true, true> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 	private:
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 	public:
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 
 		decltype(auto) operator*()
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 
 		const decltype(*Type()) operator*() const
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		const decltype(*Type()) operator->() const
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Setter public, getter private
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, true, false, true> : public _PropertyBase<OwnerClass, Type, true>
+	class Property<OwnerClass, Type, true, false, true> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 	private:
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 
 		decltype(auto) operator*()
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 
 		const decltype(*Type()) operator*() const
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		const decltype(*Type()) operator->() const
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Both private
 	template <class OwnerClass, class Type>
-	class _Property<OwnerClass, Type, true, true, true> : public _PropertyBase<OwnerClass, Type, true>
+	class Property<OwnerClass, Type, true, true, true> : public PropertyBase<OwnerClass, Type>
 	{
 	public:
 		friend OwnerClass;
 
-		using _PropertyBase::_PropertyBase;
+		using PropertyBase::PropertyBase;
 
 	private:
 		decltype(auto) get() const
 		{
-			return _PropertyBase::get();
+			return PropertyBase::get();
 		}
 
 		decltype(auto) operator=(const Type& rhs)
 		{
-			return _PropertyBase::operator=(rhs);
+			return PropertyBase::operator=(rhs);
 		}
 
 		operator Type() const
 		{
-			return _PropertyBase::operator Type();
+			return PropertyBase::operator Type();
 		}
 
 		decltype(auto) operator*()
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 
 		const decltype(*Type()) operator*() const
 		{
-			return _PropertyBase::operator*();
+			return PropertyBase::operator*();
 		}
 
 		const decltype(*Type()) operator->() const
 		{
-			return _PropertyBase::operator->();
+			return PropertyBase::operator->();
 		}
 	};
 }
