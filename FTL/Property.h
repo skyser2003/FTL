@@ -24,6 +24,24 @@ namespace FTL
 		}
 	};
 
+	// Return type specialization
+	template <class Type, bool isFundamental = std::is_fundamental<Type>::value>
+	class _PropertyReturnType;
+
+	template <class Type>
+	class _PropertyReturnType<Type, true>
+	{
+	public:
+		typedef Type Type;
+	};
+
+	template <class Type>
+	class _PropertyReturnType<Type, false>
+	{
+	public:
+		typedef Type& Type;
+	};
+
 	template <class OwnerClass, class Type, bool IsPointer>
 	class _PropertyBase;
 
@@ -33,6 +51,7 @@ namespace FTL
 	{
 	public:
 		typedef Type Type;
+		typedef typename _PropertyReturnType<Type>::Type ReturnType;
 
 	protected:
 		_PropertyBase() : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
@@ -57,17 +76,17 @@ namespace FTL
 
 		}
 
-		Type get() const
+		ReturnType get() const
 		{
 			return getter(value);
 		}
 
-		Type& operator=(const Type& rhs)
+		ReturnType operator=(const Type& rhs)
 		{
 			return value = setter(rhs);
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
 			return get();
 		}
@@ -85,6 +104,7 @@ namespace FTL
 	{
 	public:
 		typedef Type Type;
+		typedef typename _PropertyReturnType<Type>::Type ReturnType;
 
 	protected:
 		_PropertyBase() : _PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
@@ -109,17 +129,17 @@ namespace FTL
 
 		}
 
-		Type get() const
+		ReturnType get() const
 		{
 			return getter(value);
 		}
 
-		Type& operator=(const Type& rhs)
+		ReturnType operator=(const Type& rhs)
 		{
 			return value = setter(rhs);
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
 			return get();
 		}
