@@ -42,12 +42,12 @@ namespace FTL
 		typedef Type& Type;
 	};
 
-	template <class OwnerClass, class Type, bool IsPointer = IsPointer<Type>::value>
+	template <class Type, bool IsPointer = IsPointer<Type>::value>
 	class PropertyBase;
 
 	// Base class non-pointer specialization
-	template <class OwnerClass, class Type>
-	class PropertyBase<OwnerClass, Type, false>
+	template <class Type>
+	class PropertyBase<Type, false>
 	{
 	public:
 		typedef Type Type;
@@ -99,8 +99,8 @@ namespace FTL
 	};
 
 	// Base class pointer specialization
-	template <class OwnerClass, class Type>
-	class PropertyBase<OwnerClass, Type, true>
+	template <class Type>
+	class PropertyBase<Type, true>
 	{
 	public:
 		typedef Type Type;
@@ -177,7 +177,7 @@ namespace FTL
 
 	// Non-pointer specialization : Both public
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, false, false, false> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, false, false, false> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -202,7 +202,7 @@ namespace FTL
 
 	// Non-pointer specialization : Setter private, getter public
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, false, true, false> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, false, true, false> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -229,7 +229,7 @@ namespace FTL
 
 	// Non-pointer specialization : Setter public, Getter private
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, true, false, false> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, true, false, false> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -255,7 +255,7 @@ namespace FTL
 
 	// Non-pointer specialization : Both private
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, true, true, false> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, true, true, false> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -281,7 +281,7 @@ namespace FTL
 
 	// Pointer specialization : Both public
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, false, false, true> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, false, false, true> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -326,7 +326,7 @@ namespace FTL
 
 	// Pointer specialization : Setter private, getter public
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, false, true, true> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, false, true, true> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -373,7 +373,7 @@ namespace FTL
 
 	// Pointer specialization : Setter public, getter private
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, true, false, true> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, true, false, true> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
@@ -419,7 +419,7 @@ namespace FTL
 
 	// Pointer specialization : Both private
 	template <class OwnerClass, class Type>
-	class Property<OwnerClass, Type, true, true, true> : public PropertyBase<OwnerClass, Type>
+	class Property<OwnerClass, Type, true, true, true> : public PropertyBase<Type>
 	{
 	public:
 		friend OwnerClass;
