@@ -183,6 +183,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 		decltype(auto) get() const
 		{
@@ -194,9 +195,9 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 	};
 
@@ -208,6 +209,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 		decltype(auto) get() const
 		{
@@ -221,9 +223,9 @@ namespace FTL
 		}
 
 	public:
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 	};
 
@@ -235,6 +237,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 		decltype(auto) operator=(const Type& rhs)
 		{
@@ -247,9 +250,9 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 	};
 
@@ -261,6 +264,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 	private:
 		decltype(auto) get() const
@@ -273,9 +277,9 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 	};
 
@@ -287,6 +291,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 		decltype(auto) get() const
 		{
@@ -298,9 +303,9 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 
 		decltype(auto) operator*()
@@ -332,6 +337,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 		decltype(auto) get() const
 		{
@@ -345,9 +351,9 @@ namespace FTL
 		}
 
 	public:
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 
 		decltype(auto) operator*()
@@ -379,6 +385,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 		decltype(auto) operator=(const Type& rhs)
 		{
@@ -391,9 +398,9 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 
 		decltype(auto) operator*()
@@ -425,6 +432,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
+		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
 	private:
 		decltype(auto) get() const
@@ -437,9 +445,9 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator Type() const
+		operator ReturnType() const
 		{
-			return PropertyBase::operator Type();
+			return PropertyBase::operator ReturnType();
 		}
 
 		decltype(auto) operator*()
