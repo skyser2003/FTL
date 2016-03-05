@@ -155,7 +155,7 @@ namespace FTL
 			return *value;
 		}
 
-		Type& operator->()
+		Type operator->()
 		{
 			return value;
 		}
@@ -165,7 +165,7 @@ namespace FTL
 			return *value;
 		}
 
-		const Type& operator->() const
+		const Type operator->() const
 		{
 			return value;
 		}
@@ -324,12 +324,12 @@ namespace FTL
 			return PropertyBase::operator->();
 		}
 
-		const decltype(*Type()) operator*() const
+		decltype(auto) operator*() const
 		{
 			return PropertyBase::operator*();
 		}
 
-		const decltype(*Type()) operator->() const
+		decltype(auto) operator->() const
 		{
 			return PropertyBase::operator->();
 		}
@@ -372,12 +372,12 @@ namespace FTL
 			return PropertyBase::operator->();
 		}
 
-		const decltype(*Type()) operator*() const
+		decltype(auto) operator*() const
 		{
 			return PropertyBase::operator*();
 		}
 
-		const decltype(*Type()) operator->() const
+		decltype(auto) operator->() const
 		{
 			return PropertyBase::operator->();
 		}
@@ -419,12 +419,12 @@ namespace FTL
 			return PropertyBase::operator->();
 		}
 
-		const decltype(*Type()) operator*() const
+		decltype(auto) operator*() const
 		{
 			return PropertyBase::operator*();
 		}
 
-		const decltype(*Type()) operator->() const
+		decltype(auto) operator->() const
 		{
 			return PropertyBase::operator->();
 		}
@@ -466,12 +466,12 @@ namespace FTL
 			return PropertyBase::operator->();
 		}
 
-		const decltype(*Type()) operator*() const
+		decltype(auto) operator*() const
 		{
 			return PropertyBase::operator*();
 		}
 
-		const decltype(*Type()) operator->() const
+		decltype(auto) operator->() const
 		{
 			return PropertyBase::operator->();
 		}
