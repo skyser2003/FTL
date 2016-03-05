@@ -110,8 +110,8 @@ namespace FTL
 		typedef Type Type;
 		typedef Type InterfaceType;
 
-		typedef std::function<InterfaceType(const Type&)> SetterType;
-		typedef std::function<InterfaceType(const Type&)> GetterType;
+		typedef std::function<InterfaceType(InterfaceType)> SetterType;
+		typedef std::function<InterfaceType(InterfaceType)> GetterType;
 
 	protected:
 		PropertyBase() : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>())
