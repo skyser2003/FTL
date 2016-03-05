@@ -81,6 +81,9 @@ namespace FTL
 		typedef Type Type;
 		typedef typename PropertyReturnType<Type>::Type ReturnType;
 
+		typedef std::function<ReturnType(const Type&)> SetterType;
+		typedef std::function<ReturnType(const Type&)> GetterType;
+
 	protected:
 		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>())
 		{
@@ -92,12 +95,12 @@ namespace FTL
 
 		}
 
-		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : setter(setter), getter(getter)
+		PropertyBase(SetterType setter, GetterType getter) : setter(setter), getter(getter)
 		{
 
 		}
 
-		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter, Type value)
+		PropertyBase(SetterType setter, GetterType getter, Type value)
 			: setter(setter), getter(getter), value(value)
 		{
 
@@ -121,8 +124,8 @@ namespace FTL
 	private:
 		Type value;
 
-		std::function<Type(Type)> setter;
-		std::function<Type(Type)> getter;
+		SetterType setter;
+		GetterType getter;
 	};
 
 	// Base class pointer specialization
@@ -132,6 +135,9 @@ namespace FTL
 	public:
 		typedef Type Type;
 		typedef Type ReturnType;
+
+		typedef std::function<ReturnType(const Type&)> SetterType;
+		typedef std::function<ReturnType(const Type&)> GetterType;
 
 	protected:
 		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>())
@@ -144,12 +150,12 @@ namespace FTL
 
 		}
 
-		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : setter(setter), getter(getter)
+		PropertyBase(SetterType setter, GetterType getter) : setter(setter), getter(getter)
 		{
 
 		}
 
-		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter, Type value)
+		PropertyBase(SetterType setter, GetterType getter, Type value)
 			: setter(setter), getter(getter), value(value)
 		{
 
@@ -193,8 +199,8 @@ namespace FTL
 	private:
 		Type value;
 
-		std::function<Type(Type)> setter;
-		std::function<Type(Type)> getter;
+		SetterType setter;
+		GetterType getter;
 	};
 
 	// Declare
