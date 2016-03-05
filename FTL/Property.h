@@ -104,7 +104,7 @@ namespace FTL
 	{
 	public:
 		typedef Type Type;
-		typedef typename PropertyReturnType<Type>::Type ReturnType;
+		typedef Type ReturnType;
 
 	protected:
 		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
