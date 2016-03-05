@@ -23,12 +23,11 @@ namespace FTL
 	};
 
 	// Default getter & setter
-	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value>
+	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value == false>
 	class DefaultSetter;
 
-	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value>
+	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value == false>
 	class DefaultGetter;
-
 
 	template <class Type>
 	class DefaultSetter<Type, true>
@@ -83,7 +82,7 @@ namespace FTL
 		typedef typename PropertyReturnType<Type>::Type ReturnType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
+		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>())
 		{
 
 		}
@@ -93,8 +92,7 @@ namespace FTL
 
 		}
 
-		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-			: PropertyBase(setter, getter, Type())
+		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : setter(setter), getter(getter)
 		{
 
 		}
@@ -136,7 +134,7 @@ namespace FTL
 		typedef Type ReturnType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), Type())
+		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>())
 		{
 
 		}
@@ -146,8 +144,7 @@ namespace FTL
 
 		}
 
-		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter)
-			: PropertyBase(setter, getter, Type())
+		PropertyBase(std::function<Type(Type)> setter, std::function<Type(Type)> getter) : setter(setter), getter(getter)
 		{
 
 		}
