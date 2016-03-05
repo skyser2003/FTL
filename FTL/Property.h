@@ -27,7 +27,7 @@ namespace FTL
 	class DefaultSetter
 	{
 	public:
-		ReturnType operator()(const Type& rhs)
+		ReturnType operator()(ReturnType rhs)
 		{
 			return static_cast<ReturnType>(rhs);
 		}
@@ -37,7 +37,7 @@ namespace FTL
 	class DefaultGetter
 	{
 	public:
-		ReturnType operator()(const Type& rhs)
+		ReturnType operator()(ReturnType rhs)
 		{
 			return static_cast<ReturnType>(rhs);
 		}
@@ -55,8 +55,8 @@ namespace FTL
 		typedef Type Type;
 		typedef typename PropertyReturnType<Type>::Type ReturnType;
 
-		typedef std::function<ReturnType(const Type&)> SetterType;
-		typedef std::function<ReturnType(const Type&)> GetterType;
+		typedef std::function<ReturnType(ReturnType)> SetterType;
+		typedef std::function<ReturnType(ReturnType)> GetterType;
 
 	protected:
 		PropertyBase() : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>())
@@ -85,7 +85,7 @@ namespace FTL
 			return getter(value);
 		}
 
-		ReturnType operator=(const Type& rhs)
+		ReturnType operator=(ReturnType rhs)
 		{
 			return value = setter(rhs);
 		}
@@ -140,7 +140,7 @@ namespace FTL
 			return getter(value);
 		}
 
-		ReturnType operator=(const Type& rhs)
+		ReturnType operator=(ReturnType rhs)
 		{
 			return value = setter(rhs);
 		}
@@ -196,7 +196,7 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -223,7 +223,7 @@ namespace FTL
 		}
 
 	private:
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -245,7 +245,7 @@ namespace FTL
 		using PropertyBase::PropertyBase;
 		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -278,7 +278,7 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -304,7 +304,7 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -351,7 +351,7 @@ namespace FTL
 		}
 
 	private:
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -393,7 +393,7 @@ namespace FTL
 		using PropertyBase::PropertyBase;
 		typedef typename PropertyBase<Type>::ReturnType ReturnType;
 
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -446,7 +446,7 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(const Type& rhs)
+		decltype(auto) operator=(ReturnType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
