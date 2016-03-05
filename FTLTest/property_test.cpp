@@ -37,6 +37,7 @@ namespace FTLTest
 
 		void Test()
 		{
+			defaultProp = 0;
 			prop1 = 1;
 			prop2 = 2;
 			prop3 = 3;
@@ -165,7 +166,7 @@ namespace FTLTest
 		}
 
 		template <class T>
-		constexpr bool IsGetterPrivate(const T&, decltype(typename declval<T>().operator T::ReturnType())* ptr) const
+		constexpr bool IsGetterPrivate(const T&, decltype(typename declval<T>().operator T::InterfaceType())* ptr) const
 		{
 			return false;
 		}
