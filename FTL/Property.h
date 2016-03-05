@@ -6,40 +6,40 @@ namespace FTL
 {
 	// Return type specialization
 	template <class Type, bool isFundamental = std::is_fundamental<Type>::value>
-	class PropertyReturnType;
+	class PropertyInterfaceType;
 
 	template <class Type>
-	class PropertyReturnType<Type, true>
+	class PropertyInterfaceType<Type, true>
 	{
 	public:
 		typedef Type Type;
 	};
 
 	template <class Type>
-	class PropertyReturnType<Type, false>
+	class PropertyInterfaceType<Type, false>
 	{
 	public:
 		typedef Type& Type;
 	};
 
 	// Default getter & setter
-	template <class Type, class ReturnType>
+	template <class Type, class InterfaceType>
 	class DefaultSetter
 	{
 	public:
-		ReturnType operator()(ReturnType rhs)
+		InterfaceType operator()(InterfaceType rhs)
 		{
-			return static_cast<ReturnType>(rhs);
+			return static_cast<InterfaceType>(rhs);
 		}
 	};
 
-	template <class Type, class ReturnType>
+	template <class Type, class InterfaceType>
 	class DefaultGetter
 	{
 	public:
-		ReturnType operator()(ReturnType rhs)
+		InterfaceType operator()(InterfaceType rhs)
 		{
-			return static_cast<ReturnType>(rhs);
+			return static_cast<InterfaceType>(rhs);
 		}
 	};
 
@@ -53,18 +53,18 @@ namespace FTL
 	{
 	public:
 		typedef Type Type;
-		typedef typename PropertyReturnType<Type>::Type ReturnType;
+		typedef typename PropertyInterfaceType<Type>::Type InterfaceType;
 
-		typedef std::function<ReturnType(ReturnType)> SetterType;
-		typedef std::function<ReturnType(ReturnType)> GetterType;
+		typedef std::function<InterfaceType(InterfaceType)> SetterType;
+		typedef std::function<InterfaceType(InterfaceType)> GetterType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>())
+		PropertyBase() : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>())
 		{
 
 		}
 
-		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>(), value)
+		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>(), value)
 		{
 
 		}
@@ -80,17 +80,17 @@ namespace FTL
 
 		}
 
-		ReturnType get() const
+		InterfaceType get() const
 		{
 			return getter(value);
 		}
 
-		ReturnType operator=(ReturnType rhs)
+		InterfaceType operator=(InterfaceType rhs)
 		{
 			return value = setter(rhs);
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
 			return get();
 		}
@@ -108,18 +108,18 @@ namespace FTL
 	{
 	public:
 		typedef Type Type;
-		typedef Type ReturnType;
+		typedef Type InterfaceType;
 
-		typedef std::function<ReturnType(const Type&)> SetterType;
-		typedef std::function<ReturnType(const Type&)> GetterType;
+		typedef std::function<InterfaceType(const Type&)> SetterType;
+		typedef std::function<InterfaceType(const Type&)> GetterType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>())
+		PropertyBase() : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>())
 		{
 
 		}
 
-		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>(), value)
+		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>(), value)
 		{
 
 		}
@@ -135,17 +135,17 @@ namespace FTL
 
 		}
 
-		ReturnType get() const
+		InterfaceType get() const
 		{
 			return getter(value);
 		}
 
-		ReturnType operator=(ReturnType rhs)
+		InterfaceType operator=(InterfaceType rhs)
 		{
 			return value = setter(rhs);
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
 			return get();
 		}
@@ -189,21 +189,21 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 		decltype(auto) get() const
 		{
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 	};
 
@@ -215,7 +215,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 		decltype(auto) get() const
 		{
@@ -223,15 +223,15 @@ namespace FTL
 		}
 
 	private:
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
 
 	public:
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 	};
 
@@ -243,9 +243,9 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -256,9 +256,9 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 	};
 
@@ -270,7 +270,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 	private:
 		decltype(auto) get() const
@@ -278,14 +278,14 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 	};
 
@@ -297,21 +297,21 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 		decltype(auto) get() const
 		{
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -343,7 +343,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 		decltype(auto) get() const
 		{
@@ -351,15 +351,15 @@ namespace FTL
 		}
 
 	private:
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
 
 	public:
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -391,9 +391,9 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
@@ -404,9 +404,9 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -438,7 +438,7 @@ namespace FTL
 		friend OwnerClass;
 
 		using PropertyBase::PropertyBase;
-		typedef typename PropertyBase<Type>::ReturnType ReturnType;
+		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 	private:
 		decltype(auto) get() const
@@ -446,14 +446,14 @@ namespace FTL
 			return PropertyBase::get();
 		}
 
-		decltype(auto) operator=(ReturnType rhs)
+		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator ReturnType() const
+		operator InterfaceType() const
 		{
-			return PropertyBase::operator ReturnType();
+			return PropertyBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
