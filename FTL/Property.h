@@ -23,49 +23,23 @@ namespace FTL
 	};
 
 	// Default getter & setter
-	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value == false>
-	class DefaultSetter;
-
-	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value == false>
-	class DefaultGetter;
-
-	template <class Type>
-	class DefaultSetter<Type, true>
+	template <class Type, class ReturnType>
+	class DefaultSetter
 	{
 	public:
-		Type& operator()(const Type& rhs)
+		ReturnType operator()(const Type& rhs)
 		{
-			return const_cast<Type&>(rhs);
+			return static_cast<ReturnType>(rhs);
 		}
 	};
 
-	template <class Type>
-	class DefaultSetter<Type, false>
+	template <class Type, class ReturnType>
+	class DefaultGetter
 	{
 	public:
-		Type operator()(const Type& rhs)
+		ReturnType operator()(const Type& rhs)
 		{
-			return rhs;
-		}
-	};
-
-	template <class Type>
-	class DefaultGetter<Type, true>
-	{
-	public:
-		Type& operator()(const Type& rhs)
-		{
-			return const_cast<Type&>(rhs);
-		}
-	};
-
-	template <class Type>
-	class DefaultGetter<Type, false>
-	{
-	public:
-		Type operator()(const Type& rhs)
-		{
-			return rhs;
+			return static_cast<ReturnType>(rhs);
 		}
 	};
 
@@ -85,12 +59,12 @@ namespace FTL
 		typedef std::function<ReturnType(const Type&)> GetterType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>())
+		PropertyBase() : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>())
 		{
 
 		}
 
-		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), value)
+		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>(), value)
 		{
 
 		}
@@ -140,12 +114,12 @@ namespace FTL
 		typedef std::function<ReturnType(const Type&)> GetterType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>())
+		PropertyBase() : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>())
 		{
 
 		}
 
-		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type>(), DefaultGetter<Type>(), value)
+		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, ReturnType>(), DefaultGetter<Type, ReturnType>(), value)
 		{
 
 		}
