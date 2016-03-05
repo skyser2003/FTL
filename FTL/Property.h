@@ -4,26 +4,6 @@
 
 namespace FTL
 {
-	template <class Type>
-	class DefaultSetter
-	{
-	public:
-		Type operator()(const Type& rhs)
-		{
-			return rhs;
-		}
-	};
-
-	template <class Type>
-	class DefaultGetter
-	{
-	public:
-		Type operator()(const Type& rhs)
-		{
-			return rhs;
-		}
-	};
-
 	// Return type specialization
 	template <class Type, bool isFundamental = std::is_fundamental<Type>::value>
 	class PropertyReturnType;
@@ -42,6 +22,55 @@ namespace FTL
 		typedef Type& Type;
 	};
 
+	// Default getter & setter
+	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value>
+	class DefaultSetter;
+
+	template <class Type, bool returnReference = IsPointer<Type>::value == false && std::is_fundamental<Type>::value>
+	class DefaultGetter;
+
+
+	template <class Type>
+	class DefaultSetter<Type, true>
+	{
+	public:
+		Type& operator()(const Type& rhs)
+		{
+			return const_cast<Type&>(rhs);
+		}
+	};
+
+	template <class Type>
+	class DefaultSetter<Type, false>
+	{
+	public:
+		Type operator()(const Type& rhs)
+		{
+			return rhs;
+		}
+	};
+
+	template <class Type>
+	class DefaultGetter<Type, true>
+	{
+	public:
+		Type& operator()(const Type& rhs)
+		{
+			return const_cast<Type&>(rhs);
+		}
+	};
+
+	template <class Type>
+	class DefaultGetter<Type, false>
+	{
+	public:
+		Type operator()(const Type& rhs)
+		{
+			return rhs;
+		}
+	};
+
+	// Base class
 	template <class Type, bool IsPointer = IsPointer<Type>::value>
 	class PropertyBase;
 
