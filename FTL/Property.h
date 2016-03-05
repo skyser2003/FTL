@@ -152,22 +152,22 @@ namespace FTL
 
 		decltype(*Type()) operator*()
 		{
-			return *value;
+			return *getter(value);
 		}
 
-		Type operator->()
+		InterfaceType operator->()
 		{
-			return value;
+			return getter(value);
 		}
 
 		const decltype(*Type()) operator*() const
 		{
-			return *value;
+			return *getter(value);
 		}
 
-		const Type operator->() const
+		const InterfaceType operator->() const
 		{
-			return value;
+			return getter(value);
 		}
 
 	private:
