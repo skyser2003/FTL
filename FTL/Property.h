@@ -80,7 +80,7 @@ namespace FTL
 
 		}
 
-		InterfaceType get() const
+		InterfaceType get()
 		{
 			return getter(value);
 		}
@@ -90,7 +90,7 @@ namespace FTL
 			return value = setter(rhs);
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return get();
 		}
@@ -135,7 +135,7 @@ namespace FTL
 
 		}
 
-		InterfaceType get() const
+		InterfaceType get()
 		{
 			return getter(value);
 		}
@@ -145,7 +145,7 @@ namespace FTL
 			return value = setter(rhs);
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return get();
 		}
@@ -191,7 +191,7 @@ namespace FTL
 		using PropertyBase::PropertyBase;
 		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
@@ -201,7 +201,7 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -217,7 +217,7 @@ namespace FTL
 		using PropertyBase::PropertyBase;
 		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
@@ -229,7 +229,7 @@ namespace FTL
 		}
 
 	public:
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -251,12 +251,12 @@ namespace FTL
 		}
 
 	private:
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -273,7 +273,7 @@ namespace FTL
 		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 	private:
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
@@ -283,7 +283,7 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -299,7 +299,7 @@ namespace FTL
 		using PropertyBase::PropertyBase;
 		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
@@ -309,7 +309,7 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -345,7 +345,7 @@ namespace FTL
 		using PropertyBase::PropertyBase;
 		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
@@ -357,7 +357,7 @@ namespace FTL
 		}
 
 	public:
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -399,12 +399,12 @@ namespace FTL
 		}
 
 	private:
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
@@ -441,7 +441,7 @@ namespace FTL
 		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
 
 	private:
-		decltype(auto) get() const
+		decltype(auto) get()
 		{
 			return PropertyBase::get();
 		}
@@ -451,7 +451,7 @@ namespace FTL
 			return PropertyBase::operator=(rhs);
 		}
 
-		operator InterfaceType() const
+		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
 		}
