@@ -52,6 +52,8 @@ namespace FTL
 	class PropertyBase<Type, false>
 	{
 	public:
+		static const bool isPointer = false;
+
 		typedef Type Type;
 		typedef typename PropertyInterfaceType<Type>::Type InterfaceType;
 
@@ -107,6 +109,8 @@ namespace FTL
 	class PropertyBase<Type, true>
 	{
 	public:
+		static const bool isPointer = true;
+
 		typedef Type Type;
 		typedef Type InterfaceType;
 
