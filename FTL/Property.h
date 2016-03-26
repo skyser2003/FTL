@@ -61,12 +61,12 @@ namespace FTL
 		typedef std::function<InterfaceType(InterfaceType)> GetterType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>())
+		PropertyBase()
 		{
 
 		}
 
-		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>(), value)
+		PropertyBase(Type value) : value(value)
 		{
 
 		}
@@ -100,8 +100,8 @@ namespace FTL
 	private:
 		Type value;
 
-		SetterType setter;
-		GetterType getter;
+		SetterType setter = DefaultSetter<Type, InterfaceType>();
+		GetterType getter = DefaultGetter<Type, InterfaceType>();
 	};
 
 	// Base class pointer specialization
@@ -118,12 +118,12 @@ namespace FTL
 		typedef std::function<InterfaceType(InterfaceType)> GetterType;
 
 	protected:
-		PropertyBase() : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>())
+		PropertyBase()
 		{
 
 		}
 
-		PropertyBase(Type value) : PropertyBase(DefaultSetter<Type, InterfaceType>(), DefaultGetter<Type, InterfaceType>(), value)
+		PropertyBase(Type value) : value(value)
 		{
 
 		}
@@ -177,8 +177,8 @@ namespace FTL
 	private:
 		Type value;
 
-		SetterType setter;
-		GetterType getter;
+		SetterType setter = DefaultSetter<Type, InterfaceType>();
+		GetterType getter = DefaultGetter<Type, InterfaceType>();
 	};
 
 	// Declare
