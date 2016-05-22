@@ -14,6 +14,98 @@ namespace FTL
 
 		Property<Vector, ValueType, false, false> Value[Dimension];
 
+		Vector operator+(const Vector& rhs)
+		{
+			Vector ret;
+
+			for (int i = 0; i < Dimension; ++i)
+			{
+				ret.Value[i] = Value[i] + rhs.Value[i];
+			}
+
+			return ret;
+		}
+
+		Vector operator-(const Vector& rhs)
+		{
+			Vector ret;
+
+			for (int i = 0; i < Dimension; ++i)
+			{
+				ret.Value[i] = Value[i] - rhs.Value[i];
+			}
+
+			return ret;
+		}
+
+		template <class MultiplierType>
+		Vector operator*(MultiplierType value)
+		{
+			Vector ret = *this;
+
+			for (int i = 0; i < Dimension; ++i)
+			{
+				ret.Value[i] = Value[i] * value;
+			}
+
+			return ret;
+		}
+
+		template <class MultiplierType>
+		Vector operator/(MultiplierType value)
+		{
+			Vector ret = *this;
+
+			for (int i = 0; i < Dimension; ++i)
+			{
+				ret.Value[i] = Value[i] / value;
+			}
+
+			return ret;
+		}
+
+		Vector operator+=(const Vector& rhs)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] += rhs.Value[i];
+			}
+
+			return *this;
+		}
+
+		Vector operator-=(const Vector& rhs)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] -= rhs.Value[i];
+			}
+
+			return *this;
+		}
+
+		template <class MultiplierType>
+		Vector operator*=(MultiplierType value)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] *= value;
+			}
+
+			return *this;
+		}
+
+		template <class MultiplierType>
+		Vector operator/=(MultiplierType value)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] /= value;
+			}
+
+			return *this;
+		}
+
 		void Set(ValueType valueArray[Dimension])
 		{
 			for (int i = 0; i < Dimension; ++i)
