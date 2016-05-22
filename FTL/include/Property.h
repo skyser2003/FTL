@@ -87,6 +87,11 @@ namespace FTL
 			return getter(value);
 		}
 
+		InterfaceType get() const
+		{
+			return getter(value);
+		}
+
 		InterfaceType operator=(InterfaceType rhs)
 		{
 			return value = setter(rhs);
@@ -95,6 +100,102 @@ namespace FTL
 		operator InterfaceType()
 		{
 			return get();
+		}
+
+		InterfaceType operator+(const PropertyBase& rhs)
+		{
+			return get() + rhs.get();
+		}
+
+		InterfaceType operator+(InterfaceType rhs)
+		{
+			return get() + rhs;
+		}
+
+		InterfaceType operator-(const PropertyBase& rhs)
+		{
+			return get() - rhs.get();
+		}
+
+		InterfaceType operator-(InterfaceType rhs)
+		{
+			return get() - rhs;
+		}
+
+		InterfaceType operator*(const PropertyBase& rhs)
+		{
+			return get() * rhs.get();
+		}
+
+		InterfaceType operator*(InterfaceType rhs)
+		{
+			return get() * rhs;
+		}
+
+		InterfaceType operator/(const PropertyBase& rhs)
+		{
+			return get() / rhs.get();
+		}
+
+		InterfaceType operator/(InterfaceType rhs)
+		{
+			return get() / rhs;
+		}
+
+		PropertyBase operator+=(const PropertyBase& rhs)
+		{
+			setter(get() + rhs.get());
+
+			return *this;
+		}
+
+		PropertyBase operator+=(InterfaceType rhs)
+		{
+			setter(get() + rhs);
+
+			return *this;
+		}
+
+		PropertyBase operator-=(const PropertyBase& rhs)
+		{
+			setter(get() - rhs.get());
+
+			return *this;
+		}
+
+		PropertyBase operator-=(InterfaceType rhs)
+		{
+			setter(get() - rhs);
+
+			return *this;
+		}
+
+		PropertyBase operator*=(const PropertyBase& rhs)
+		{
+			setter(get() * rhs.get());
+
+			return *this;
+		}
+
+		PropertyBase operator*=(InterfaceType rhs)
+		{
+			setter(get() * rhs);
+
+			return *this;
+		}
+
+		PropertyBase operator/=(const PropertyBase& rhs)
+		{
+			setter(get() / rhs.get());
+
+			return *this;
+		}
+
+		PropertyBase operator/=(InterfaceType rhs)
+		{
+			setter(get() / rhs);
+
+			return *this;
 		}
 
 	private:
@@ -140,6 +241,11 @@ namespace FTL
 		}
 
 		InterfaceType get()
+		{
+			return getter(value);
+		}
+
+		InterfaceType get() const
 		{
 			return getter(value);
 		}
