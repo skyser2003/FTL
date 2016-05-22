@@ -57,8 +57,8 @@ namespace FTL
 		typedef Type Type;
 		typedef typename PropertyInterfaceType<Type>::Type InterfaceType;
 
-		typedef std::function<InterfaceType(InterfaceType)> SetterType;
 		typedef std::function<InterfaceType(InterfaceType)> GetterType;
+		typedef std::function<InterfaceType(InterfaceType)> SetterType;
 
 	protected:
 		PropertyBase()
@@ -71,13 +71,13 @@ namespace FTL
 
 		}
 
-		PropertyBase(SetterType setter, GetterType getter) : setter(setter), getter(getter)
+		PropertyBase(GetterType getter, SetterType setter) : getter(getter), setter(setter)
 		{
 
 		}
 
-		PropertyBase(SetterType setter, GetterType getter, Type value)
-			: setter(setter), getter(getter), value(value)
+		PropertyBase(GetterType getter, SetterType setter, Type value)
+			: getter(getter), setter(setter), value(value)
 		{
 
 		}
@@ -100,8 +100,8 @@ namespace FTL
 	private:
 		Type value;
 
-		SetterType setter = DefaultSetter<Type, InterfaceType>();
 		GetterType getter = DefaultGetter<Type, InterfaceType>();
+		SetterType setter = DefaultSetter<Type, InterfaceType>();
 	};
 
 	// Base class pointer specialization
@@ -128,13 +128,13 @@ namespace FTL
 
 		}
 
-		PropertyBase(SetterType setter, GetterType getter) : setter(setter), getter(getter)
+		PropertyBase(GetterType getter, SetterType setter) : getter(getter), setter(setter)
 		{
 
 		}
 
-		PropertyBase(SetterType setter, GetterType getter, Type value)
-			: setter(setter), getter(getter), value(value)
+		PropertyBase(GetterType getter, SetterType setter, Type value)
+			: getter(getter), setter(setter), value(value)
 		{
 
 		}
@@ -177,8 +177,8 @@ namespace FTL
 	private:
 		Type value;
 
-		SetterType setter = DefaultSetter<Type, InterfaceType>();
 		GetterType getter = DefaultGetter<Type, InterfaceType>();
+		SetterType setter = DefaultSetter<Type, InterfaceType>();
 	};
 
 	// Declare

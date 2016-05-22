@@ -15,19 +15,19 @@ namespace FTLTest
 		// Value
 		Property<TestClass, int, false, false> defaultProp;
 
-		Property<TestClass, int, true, true> prop1{ [](int val) {return val*val; }, DefaultGetter<int, int>() };
-		Property<TestClass, int, false, true> prop2{ [](int val) {return val*val; }, DefaultGetter<int, int>() };
-		Property<TestClass, int, true, false> prop3{ [](int val) {return val*val; }, DefaultGetter<int, int>() };
-		Property<TestClass, int, false, false> prop4{ [](int val) {return val*val; }, DefaultGetter<int, int>() };
+		Property<TestClass, int, true, true> prop1{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
+		Property<TestClass, int, false, true> prop2{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
+		Property<TestClass, int, true, false> prop3{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
+		Property<TestClass, int, false, false> prop4{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
 
 		int pD, p1, p2, p3, p4;
 
 		Property<TestClass, int*, false, false> pDefaultProp{ &pD };
 
-		Property<TestClass, int*, true, true> pProp1{ [](int* val) {return val; }, DefaultGetter<int*, int*>(), &p1 };
-		Property<TestClass, int*, false, true> pProp2{ [](int* val) {return val; }, DefaultGetter<int*, int*>(), &p2 };
-		Property<TestClass, int*, true, false> pProp3{ [](int* val) {return val; }, DefaultGetter<int*, int*>(), &p3 };
-		Property<TestClass, int*, false, false> pProp4{ [](int* val) {return val; }, DefaultGetter<int*, int*>(), &p4 };
+		Property<TestClass, int*, true, true> pProp1{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p1 };
+		Property<TestClass, int*, false, true> pProp2{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p2 };
+		Property<TestClass, int*, true, false> pProp3{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p3 };
+		Property<TestClass, int*, false, false> pProp4{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p4 };
 
 		// Pointer
 		Property<TestClass, int*, false, false> ptrProp;
