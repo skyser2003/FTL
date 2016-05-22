@@ -12,19 +12,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EnumEnumerator.h">
+    <ClInclude Include="include\EnumEnumerator.h">
       <Filter>EnumEnumerator</Filter>
     </ClInclude>
-    <ClInclude Include="Property.h">
+    <ClInclude Include="include\Property.h">
       <Filter>Property</Filter>
     </ClInclude>
-    <ClInclude Include="IsPointer.h">
+    <ClInclude Include="include\PointerDataType.h">
       <Filter>TypeTrait</Filter>
     </ClInclude>
-    <ClInclude Include="VoidTemplate.h">
+    <ClInclude Include="include\VoidTemplate.h">
       <Filter>TypeTrait</Filter>
     </ClInclude>
-    <ClInclude Include="PointerDataType.h">
+    <ClInclude Include="include\IsPointer.h">
       <Filter>TypeTrait</Filter>
     </ClInclude>
   </ItemGroup>
