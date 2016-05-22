@@ -102,6 +102,11 @@ namespace FTL
 			return get();
 		}
 
+		typename std::remove_reference<InterfaceType>::type* operator->()
+		{
+			return &getter(value);
+		}
+
 		InterfaceType operator+(const PropertyBase& rhs)
 		{
 			return get() + rhs.get();
@@ -315,6 +320,11 @@ namespace FTL
 		{
 			return PropertyBase::operator InterfaceType();
 		}
+
+		decltype(auto) operator->()
+		{
+			return PropertyBase::operator->();
+		}
 	};
 
 	// Non-pointer specialization : Setter private, getter public
@@ -343,6 +353,11 @@ namespace FTL
 		{
 			return PropertyBase::operator InterfaceType();
 		}
+
+		decltype(auto) operator->()
+		{
+			return PropertyBase::operator->();
+		}
 	};
 
 	// Non-pointer specialization : Setter public, Getter private
@@ -370,6 +385,11 @@ namespace FTL
 		{
 			return PropertyBase::operator InterfaceType();
 		}
+
+		decltype(auto) operator->()
+		{
+			return PropertyBase::operator->();
+		}
 	};
 
 	// Non-pointer specialization : Both private
@@ -396,6 +416,11 @@ namespace FTL
 		operator InterfaceType()
 		{
 			return PropertyBase::operator InterfaceType();
+		}
+
+		decltype(auto) operator->()
+		{
+			return PropertyBase::operator->();
 		}
 	};
 
