@@ -42,5 +42,8 @@
     <ClCompile Include="src\HelperFunction.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
+    <ClCompile Include="src\mathvector_test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

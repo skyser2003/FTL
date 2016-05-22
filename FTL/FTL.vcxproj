@@ -71,6 +71,7 @@
     <ClInclude Include="include\IsPointer.h" />
     <ClInclude Include="include\PointerDataType.h" />
     <ClInclude Include="include\Property.h" />
+    <ClInclude Include="include\MathVector.h" />
     <ClInclude Include="include\VoidTemplate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

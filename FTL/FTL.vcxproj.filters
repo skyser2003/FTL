@@ -10,6 +10,9 @@
     <Filter Include="TypeTrait">
       <UniqueIdentifier>{cc25f8e9-48a0-4d35-9bfd-19136ee346d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{a2e8661b-a9da-4ea1-aae8-e0cf6d9ff8d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\EnumEnumerator.h">
@@ -26,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="include\IsPointer.h">
       <Filter>TypeTrait</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MathVector.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

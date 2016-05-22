@@ -96,6 +96,10 @@
     </ClCompile>
     <ClCompile Include="src\enum_enumerator_test.cpp" />
     <ClCompile Include="src\HelperFunction.cpp" />
+    <ClCompile Include="src\mathvector_test.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\pointer_test.cpp" />
     <ClCompile Include="src\property_test.cpp" />
   </ItemGroup>
