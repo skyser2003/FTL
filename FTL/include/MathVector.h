@@ -14,6 +14,22 @@ namespace FTL
 
 		Property<Vector, ValueType, false, false> Value[Dimension];
 
+		Property<Vector, float, false, true> Magnitude
+		{
+			[this](float value)
+			{
+				value = 0;
+
+				for (int i = 0; i < Dimension; ++i)
+				{
+					value += Value[i] * Value[i];
+				}
+
+				return value;
+			},
+			DefaultSetter<ValueType, ValueType>()
+		};
+
 		Vector operator+(const Vector& rhs)
 		{
 			Vector ret;
