@@ -149,56 +149,56 @@ namespace FTL
 
 		PropertyBase operator+=(const PropertyBase& rhs)
 		{
-			setter(get() + rhs.get());
+			value = setter(get() + rhs.get());
 
 			return *this;
 		}
 
 		PropertyBase operator+=(InterfaceType rhs)
 		{
-			setter(get() + rhs);
+			value = setter(get() + rhs);
 
 			return *this;
 		}
 
 		PropertyBase operator-=(const PropertyBase& rhs)
 		{
-			setter(get() - rhs.get());
+			value = setter(get() - rhs.get());
 
 			return *this;
 		}
 
 		PropertyBase operator-=(InterfaceType rhs)
 		{
-			setter(get() - rhs);
+			value = setter(get() - rhs);
 
 			return *this;
 		}
 
 		PropertyBase operator*=(const PropertyBase& rhs)
 		{
-			setter(get() * rhs.get());
+			value = setter(get() * rhs.get());
 
 			return *this;
 		}
 
 		PropertyBase operator*=(InterfaceType rhs)
 		{
-			setter(get() * rhs);
+			value = setter(get() * rhs);
 
 			return *this;
 		}
 
 		PropertyBase operator/=(const PropertyBase& rhs)
 		{
-			setter(get() / rhs.get());
+			value = setter(get() / rhs.get());
 
 			return *this;
 		}
 
 		PropertyBase operator/=(InterfaceType rhs)
 		{
-			setter(get() / rhs);
+			value = setter(get() / rhs);
 
 			return *this;
 		}
