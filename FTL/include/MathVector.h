@@ -147,7 +147,7 @@ namespace FTL
 				return ValueType();
 			}
 
-			return Value[index];
+			return Value[index].get();
 		}
 
 		bool IsInRange(int index) const
