@@ -10,8 +10,6 @@ namespace FTL
 	public:
 		typedef ValueType ValueType;
 
-		virtual ~Vector() {}
-
 		Property<Vector, ValueType, false, false, true> Value[Dimension];
 
 		Property<Vector, float, false, true, false> Magnitude
@@ -168,8 +166,6 @@ namespace FTL
 	class Vector2 : public Vector<ValueType, 2>
 	{
 	public:
-		virtual ~Vector2() override {}
-
 		Property<Vector2, ValueType, false, false, false> X
 		{
 			[this]() { return Value[0]; },
@@ -193,8 +189,6 @@ namespace FTL
 	class Vector3 : public Vector<ValueType, 3>
 	{
 	public:
-		virtual ~Vector3() override {}
-
 		Property<Vector3, ValueType, false, false, false> X
 		{
 			[this]() { return Value[0]; },
