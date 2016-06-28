@@ -12,13 +12,13 @@ namespace FTL
 
 		virtual ~Vector() {}
 
-		Property<Vector, ValueType, false, false> Value[Dimension];
+		Property<Vector, ValueType, false, false, true> Value[Dimension];
 
-		Property<Vector, float, false, true> Magnitude
+		Property<Vector, float, false, true, false> Magnitude
 		{
-			[this](float value)
+			[this]()
 			{
-				value = 0;
+				float value = 0;
 
 				for (int i = 0; i < Dimension; ++i)
 				{
@@ -27,7 +27,10 @@ namespace FTL
 
 				return value;
 			},
-			DefaultSetter<ValueType, ValueType>()
+			[this](float value)
+			{
+				// Nothing
+			}
 		};
 
 		Vector operator+(const Vector& rhs)
@@ -167,16 +170,16 @@ namespace FTL
 	public:
 		virtual ~Vector2() override {}
 
-		Property<Vector2, ValueType, false, false> X
+		Property<Vector2, ValueType, false, false, false> X
 		{
-			[this](ValueType value) { return Value[0]; },
-			[this](ValueType value) { return Value[0] = value; }
+			[this]() { return Value[0]; },
+			[this](ValueType value) { Value[0] = value; }
 		};
 
-		Property<Vector2, ValueType, false, false> Y
+		Property<Vector2, ValueType, false, false, false> Y
 		{
-			[this](ValueType value) { return Value[1]; },
-			[this](ValueType value) { return Value[1] = value; }
+			[this]() { return Value[1]; },
+			[this](ValueType value) { Value[1] = value; }
 		};
 
 		void Set(ValueType x, ValueType y)
@@ -192,22 +195,22 @@ namespace FTL
 	public:
 		virtual ~Vector3() override {}
 
-		Property<Vector3, ValueType, false, false> X
+		Property<Vector3, ValueType, false, false, false> X
 		{
-			[this](ValueType value) { return Value[0]; },
-			[this](ValueType value) { return Value[0] = value; }
+			[this]() { return Value[0]; },
+			[this](ValueType value) { Value[0] = value; }
 		};
 
-		Property<Vector3, ValueType, false, false> Y
+		Property<Vector3, ValueType, false, false, false> Y
 		{
-			[this](ValueType value) { return Value[1]; },
-			[this](ValueType value) { return Value[1] = value; }
+			[this]() { return Value[1]; },
+			[this](ValueType value) { Value[1] = value; }
 		};
 
-		Property<Vector3, ValueType, false, false> Z
+		Property<Vector3, ValueType, false, false, false> Z
 		{
-			[this](ValueType value) { return Value[2]; },
-			[this](ValueType value) { return Value[2] = value; }
+			[this]() { return Value[2]; },
+			[this](ValueType value) { Value[2] = value; }
 		};
 
 		void Set(ValueType x, ValueType y, ValueType z)

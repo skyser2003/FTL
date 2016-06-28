@@ -13,27 +13,30 @@ namespace FTLTest
 	{
 	public:
 		// Value
-		Property<TestClass, int, false, false> defaultProp;
+		Property<TestClass, int, false, false, true> defaultProp;
 
-		Property<TestClass, int, true, true> prop1{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
-		Property<TestClass, int, false, true> prop2{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
-		Property<TestClass, int, true, false> prop3{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
-		Property<TestClass, int, false, false> prop4{ DefaultGetter<int, int>(), [](int val) {return val*val; } };
+		Property<TestClass, int, true, true, false> prop1{ [this]() { return innerI1; }, [this](int val) { innerI1 = val * val; } };
+		Property<TestClass, int, false, true, false> prop2{ [this]() { return innerI2; }, [this](int val) { innerI2 = val * val; } };
+		Property<TestClass, int, true, false, false> prop3{ [this]() { return innerI3; }, [this](int val) { innerI3 = val * val; } };
+		Property<TestClass, int, false, false, false> prop4{ [this]() { return innerI4; }, [this](int val) { innerI4 = val * val; } };
 
-		int pD, p1, p2, p3, p4;
+		int innerI1, innerI2, innerI3, innerI4;
 
-		Property<TestClass, int*, false, false> pDefaultProp{ &pD };
+		int *pD, *p1, *p2, *p3, *p4;
+		int pID, pI1, pI2, pI3, pI4;
 
-		Property<TestClass, int*, true, true> pProp1{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p1 };
-		Property<TestClass, int*, false, true> pProp2{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p2 };
-		Property<TestClass, int*, true, false> pProp3{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p3 };
-		Property<TestClass, int*, false, false> pProp4{ DefaultGetter<int*, int*>(), [](int* val) {return val; }, &p4 };
+		Property<TestClass, int*, false, false, true> pDefaultProp{ pD };
+
+		Property<TestClass, int*, true, true, false> pProp1{ [this]() { return p1; }, [this](int* val) { p1 = val; } };
+		Property<TestClass, int*, false, true, false> pProp2{ [this]() { return p2; }, [this](int* val) { p2 = val; } };
+		Property<TestClass, int*, true, false, false> pProp3{ [this]() { return p3; }, [this](int* val) { p3 = val; } };
+		Property<TestClass, int*, false, false, false> pProp4{ [this]() { return p4; }, [this](int* val) { p4 = val; } };
 
 		// Pointer
-		Property<TestClass, int*, false, false> ptrProp;
+		Property<TestClass, int*, false, false, true> ptrProp;
 
 		// Smart Pointer
-		Property<TestClass, shared_ptr<int>, false, false> smptrProp;
+		Property<TestClass, shared_ptr<int>, false, false, true> smptrProp;
 
 		void Test()
 		{
@@ -43,11 +46,11 @@ namespace FTLTest
 			prop3 = 3;
 			prop4 = 4;
 
-			pDefaultProp = &pD;
-			pProp1 = &p1;
-			pProp2 = &p2;
-			pProp3 = &p3;
-			pProp4 = &p4;
+			pDefaultProp = &pID;
+			pProp1 = &pI1;
+			pProp2 = &pI2;
+			pProp3 = &pI3;
+			pProp4 = &pI4;
 
 			*pDefaultProp = 0;
 			*pProp1 = 1;
@@ -108,11 +111,18 @@ namespace FTLTest
 			Assert::AreEqual(4 * 4, static_cast<int>(cls.prop4));
 
 			// Setter value
-			Assert::AreEqual(1 * 1, static_cast<int>(cls.defaultProp = 1));
+			Assert::AreEqual(1, static_cast<int>(cls.defaultProp = 1));
 			// Assert::AreEqual(2 * 2, static_cast<int>(cls.prop1 = 2)); // Compile error
 			// Assert::AreEqual(3 * 3, static_cast<int>(cls.prop2 = 3)); // Compile error
-			Assert::AreEqual(4 * 4, static_cast<int>(cls.prop3 = 4));
-			Assert::AreEqual(5 * 5, static_cast<int>(cls.prop4 = 5));
+			Assert::AreEqual(4, static_cast<int>(cls.prop3 = 4));
+			Assert::AreEqual(5, static_cast<int>(cls.prop4 = 5));
+
+			// After set
+			Assert::AreEqual(1 * 1, static_cast<int>(cls.defaultProp));
+			// Assert::AreEqual(2 * 2, static_cast<int>(cls.prop1)); // Setter private, compile error
+			// Assert::AreEqual(3 * 3, static_cast<int>(cls.prop2)); // Setter private
+			// Assert::AreEqual(4 * 4, static_cast<int>(cls.prop3)); // Compile error
+			Assert::AreEqual(5 * 5, static_cast<int>(cls.prop4));
 		}
 
 		TEST_METHOD(PropertyTest3)
