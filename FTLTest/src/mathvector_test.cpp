@@ -61,5 +61,13 @@ namespace FTLTest
 			Assert::AreEqual(5.5f, static_cast<float>(vec3f.Y));
 			Assert::AreEqual(6.5f, static_cast<float>(vec3f.Z));
 		}
+
+		TEST_METHOD(MathVectorTest2)
+		{
+			Pos.get().Set(0, 0, 0);
+		}
+
+	private:
+		FTL::Property<MathVectorTest, FTL::Vector3f, false, false, true> Pos;
 	};
 }
