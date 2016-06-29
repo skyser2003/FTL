@@ -63,6 +63,7 @@ namespace FTL
 
 	protected:
 		PropertyBase() = delete;
+		PropertyBase(const PropertyBase& rhs) = delete;
 
 		PropertyBase(GetterType getter, SetterType setter) : getter(getter), setter(setter)
 		{
@@ -211,6 +212,7 @@ namespace FTL
 
 	protected:
 		PropertyBase() = delete;
+		PropertyBase(const PropertyBase& rhs) = delete;
 
 		PropertyBase(GetterType getter, SetterType setter) : getter(getter), setter(setter)
 		{

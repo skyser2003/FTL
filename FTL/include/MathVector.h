@@ -177,13 +177,13 @@ namespace FTL
 	public:
 		Property<Vector2, ValueType, false, false, false> X
 		{
-			[this]() { return Value[0]; },
+			[this]() -> ValueType { return Value[0]; },
 			[this](ValueType value) { Value[0] = value; }
 		};
 
 		Property<Vector2, ValueType, false, false, false> Y
 		{
-			[this]() { return Value[1]; },
+			[this]() -> ValueType { return Value[1]; },
 			[this](ValueType value) { Value[1] = value; }
 		};
 
@@ -204,19 +204,19 @@ namespace FTL
 	public:
 		Property<Vector3, ValueType, false, false, false> X
 		{
-			[this]() { return Value[0]; },
+			[this]() -> ValueType { return Value[0]; },
 			[this](ValueType value) { Value[0] = value; }
 		};
 
 		Property<Vector3, ValueType, false, false, false> Y
 		{
-			[this]() { return Value[1]; },
+			[this]() -> ValueType { return Value[1]; },
 			[this](ValueType value) { Value[1] = value; }
 		};
 
 		Property<Vector3, ValueType, false, false, false> Z
 		{
-			[this]() { return Value[2]; },
+			[this]() -> ValueType { return Value[2]; },
 			[this](ValueType value) { Value[2] = value; }
 		};
 
