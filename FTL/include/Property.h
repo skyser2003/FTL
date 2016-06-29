@@ -136,60 +136,69 @@ namespace FTL
 			return get() / rhs;
 		}
 
-		PropertyBase operator+=(const PropertyBase& rhs)
+		InterfaceType operator+=(const PropertyBase& rhs)
 		{
-			setter(get() + rhs.get());
+			InterfaceType ret = get() + rhs.get();
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
-		PropertyBase operator+=(InterfaceType rhs)
+		InterfaceType operator+=(InterfaceType rhs)
 		{
-			setter(get() + rhs);
+			InterfaceType ret = get() + rhs;
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
-		PropertyBase operator-=(const PropertyBase& rhs)
+		InterfaceType operator-=(const PropertyBase& rhs)
 		{
-			setter(get() - rhs.get());
+			InterfaceType ret = get() - rhs.get();
+			setter(ret);
 
-			return *this;
+			return ret;
+
 		}
 
-		PropertyBase operator-=(InterfaceType rhs)
+		InterfaceType operator-=(InterfaceType rhs)
 		{
-			setter(get() - rhs);
+			InterfaceType ret = get() - rhs;
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
-		PropertyBase operator*=(const PropertyBase& rhs)
+		InterfaceType operator*=(const PropertyBase& rhs)
 		{
-			setter(get() * rhs.get());
+			InterfaceType ret = get() * rhs.get();
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
-		PropertyBase operator*=(InterfaceType rhs)
+		InterfaceType operator*=(InterfaceType rhs)
 		{
-			setter(get() * rhs);
+			InterfaceType ret = get() * rhs;
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
-		PropertyBase operator/=(const PropertyBase& rhs)
+		InterfaceType operator/=(const PropertyBase& rhs)
 		{
-			setter(get() / rhs.get());
+			InterfaceType ret = get() / rhs.get();
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
-		PropertyBase operator/=(InterfaceType rhs)
+		InterfaceType operator/=(InterfaceType rhs)
 		{
-			setter(get() / rhs);
+			InterfaceType ret = get() / rhs;
+			setter(ret);
 
-			return *this;
+			return ret;
 		}
 
 	private:
