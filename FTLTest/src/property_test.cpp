@@ -38,6 +38,14 @@ namespace FTLTest
 		// Smart Pointer
 		Property<TestClass, shared_ptr<int>, false, false, PropertyType::AutoGen> smptrProp;
 
+		// Getter only
+		int goInnerValue;
+		Property <TestClass, int, false, false, PropertyType::GetterOnly> go{ [this]() { return goInnerValue; } };
+
+		// Setter only
+		int soInnerValue;
+		Property <TestClass, int, false, false, PropertyType::SetterOnly> so{ [this](int value) { soInnerValue = value; } };
+
 		void Test()
 		{
 			defaultProp = 0;
@@ -166,6 +174,22 @@ namespace FTLTest
 			Assert::AreEqual(12, static_cast<int>(*cls.pProp2));
 			// Assert::AreEqual(13, static_cast<int>(*cls.pProp3)); // Compile error
 			Assert::AreEqual(14, static_cast<int>(*cls.pProp4));
+		}
+
+		TEST_METHOD(PropertyTest5)
+		{
+			FTLTest::TestClass cls;
+			cls.Test();
+
+			// Getter only
+			cls.goInnerValue = 3;
+			// cls.go = 4; // Compile error
+			Assert::AreEqual(3, cls.go.get());
+
+			// Setter only
+			cls.so = 6;
+			Assert::AreEqual(6, cls.soInnerValue);
+			// Assert::AreEqual(6, cls.so.get()); // Compile error
 		}
 
 	private:
