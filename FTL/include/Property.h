@@ -4,19 +4,35 @@
 
 namespace FTL
 {
+	// Property type
+	enum class PropertyType
+	{
+		Manual,
+		AutoGen,
+		GetterOnly,
+		SetterOnly,
+	};
+
+	enum class PropertyAccessorSaveType
+	{
+		GetterOnly,
+		SetterOnly,
+		Both
+	};
+
 	// Return type specialization
-	template <class Type, bool isFundamental = std::is_fundamental<Type>::value>
+	template <class Type, bool isReference = std::is_fundamental<Type>::value == false && IsPointer<Type>::value == false>
 	class PropertyInterfaceType;
 
 	template <class Type>
-	class PropertyInterfaceType<Type, true>
+	class PropertyInterfaceType<Type, false>
 	{
 	public:
 		typedef Type Type;
 	};
 
 	template <class Type>
-	class PropertyInterfaceType<Type, false>
+	class PropertyInterfaceType<Type, true>
 	{
 	public:
 		typedef Type& Type;
@@ -44,31 +60,21 @@ namespace FTL
 		Type value;
 	};
 
-	// Base class
-	template <class Type, bool IsPointer = IsPointer<Type>::value>
-	class PropertyBase;
+	// Getter base class
+	template <class Type, bool isPointer = IsPointer<Type>::value>
+	class PropertyGetterBase;
 
-	// Base class non-pointer specialization
+	// Non pointer getter
 	template <class Type>
-	class PropertyBase<Type, false>
+	class PropertyGetterBase<Type, false>
 	{
 	public:
-		static const bool isPointer = false;
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
 
-		typedef Type Type;
-		typedef typename PropertyInterfaceType<Type>::Type InterfaceType;
-
-		typedef std::function<InterfaceType(void)> GetterType;
-		typedef std::function<void(InterfaceType)> SetterType;
+		using GetterType = std::function<InterfaceType(void)>;
 
 	protected:
-		PropertyBase() = delete;
-		PropertyBase(const PropertyBase& rhs) = delete;
-
-		PropertyBase(GetterType getter, SetterType setter) : getter(getter), setter(setter)
-		{
-
-		}
+		PropertyGetterBase(GetterType getter) : getter(getter) {}
 
 		InterfaceType get()
 		{
@@ -80,12 +86,6 @@ namespace FTL
 			return getter();
 		}
 
-		InterfaceType operator=(InterfaceType rhs)
-		{
-			setter(rhs);
-			return rhs;
-		}
-
 		operator InterfaceType()
 		{
 			return get();
@@ -95,6 +95,146 @@ namespace FTL
 		{
 			return &getter();
 		}
+
+		InterfaceType operator+(const PropertyGetterBase& rhs)
+		{
+			return get() + rhs.get();
+		}
+
+		InterfaceType operator+(InterfaceType rhs)
+		{
+			return get() + rhs;
+		}
+
+		InterfaceType operator-(const PropertyGetterBase& rhs)
+		{
+			return get() - rhs.get();
+		}
+
+		InterfaceType operator-(InterfaceType rhs)
+		{
+			return get() - rhs;
+		}
+
+		InterfaceType operator*(const PropertyGetterBase& rhs)
+		{
+			return get() * rhs.get();
+		}
+
+		InterfaceType operator*(InterfaceType rhs)
+		{
+			return get() * rhs;
+		}
+
+		InterfaceType operator/(const PropertyGetterBase& rhs)
+		{
+			return get() / rhs.get();
+		}
+
+		InterfaceType operator/(InterfaceType rhs)
+		{
+			return get() / rhs;
+		}
+
+	protected:
+		GetterType getter;
+	};
+
+	// Pointer getter
+	template <class Type>
+	class PropertyGetterBase<Type, true>
+	{
+	public:
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
+
+		using GetterType = std::function<InterfaceType(void)>;
+
+	protected:
+		PropertyGetterBase(GetterType getter) : getter(getter) {}
+
+		InterfaceType get()
+		{
+			return getter(value);
+		}
+
+		InterfaceType get() const
+		{
+			return getter(value);
+		}
+
+		operator InterfaceType()
+		{
+			return get();
+		}
+
+		decltype(*Type()) operator*()
+		{
+			return *getter();
+		}
+
+		InterfaceType operator->()
+		{
+			return getter();
+		}
+
+		const decltype(*Type()) operator*() const
+		{
+			return *getter();
+		}
+
+		const InterfaceType operator->() const
+		{
+			return getter();
+		}
+
+	protected:
+		GetterType getter;
+	};
+
+	// Setter base class
+	template <class Type>
+	class PropertySetterBase
+	{
+	public:
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
+
+		using SetterType = std::function<void(InterfaceType)>;
+
+	protected:
+		PropertySetterBase(SetterType setter) : setter(setter) {}
+
+		InterfaceType operator=(InterfaceType rhs)
+		{
+			setter(rhs);
+			return rhs;
+		}
+
+	protected:
+		SetterType setter;
+	};
+
+	// Base class
+	template <class Type, PropertyAccessorSaveType AccSaveType>
+	class PropertyBase;
+
+	// Base class getter only specialization
+	template <class Type>
+	class PropertyBase<Type, PropertyAccessorSaveType::GetterOnly> : public PropertyGetterBase<Type>
+	{
+	public:
+		static const bool isPointer = IsPointer<Type>::value;
+
+		typedef Type Type;
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
+
+		using GetterType = typename PropertyGetterBase<Type>::GetterType;
+		using SetterType = typename PropertySetterBase<Type>::SetterType;
+
+	protected:
+		PropertyBase() = delete;
+		PropertyBase(const PropertyBase& rhs) = delete;
+
+		PropertyBase(GetterType getter) : PropertyGetterBase(getter) {}
 
 		InterfaceType operator+(const PropertyBase& rhs)
 		{
@@ -200,92 +340,166 @@ namespace FTL
 
 			return ret;
 		}
-
-	private:
-		GetterType getter;
-		SetterType setter;
 	};
 
-	// Base class pointer specialization
+	// Base class setter only specialization
 	template <class Type>
-	class PropertyBase<Type, true>
+	class PropertyBase<Type, PropertyAccessorSaveType::SetterOnly> : public PropertySetterBase<Type>
 	{
 	public:
-		static const bool isPointer = true;
+		static const bool isPointer = IsPointer<Type>::value;
 
 		typedef Type Type;
-		typedef Type InterfaceType;
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
 
-		typedef std::function<InterfaceType()> GetterType;
-		typedef std::function<void(InterfaceType)> SetterType;
+		using GetterType = typename PropertyGetterBase<Type>::GetterType;
+		using SetterType = typename PropertySetterBase<Type>::SetterType;
 
 	protected:
 		PropertyBase() = delete;
 		PropertyBase(const PropertyBase& rhs) = delete;
 
-		PropertyBase(GetterType getter, SetterType setter) : getter(getter), setter(setter)
+		PropertyBase(SetterType setter) : PropertySetterBase(setter) {}
+	};
+
+	// Base class both specialization
+	template <class Type>
+	class PropertyBase<Type, PropertyAccessorSaveType::Both> : public PropertyGetterBase<Type>, public PropertySetterBase<Type>
+	{
+	public:
+		static const bool isPointer = IsPointer<Type>::value;
+
+		typedef Type Type;
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
+
+		using GetterType = typename PropertyGetterBase<Type>::GetterType;
+		using SetterType = typename PropertySetterBase<Type>::SetterType;
+
+	protected:
+		PropertyBase() = delete;
+		PropertyBase(const PropertyBase& rhs) = delete;
+
+		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterBase(getter), PropertySetterBase(setter) {}
+
+		InterfaceType operator+(const PropertyBase& rhs)
 		{
+			return get() + rhs.get();
+		}
+
+		InterfaceType operator+(InterfaceType rhs)
+		{
+			return get() + rhs;
+		}
+
+		InterfaceType operator-(const PropertyBase& rhs)
+		{
+			return get() - rhs.get();
+		}
+
+		InterfaceType operator-(InterfaceType rhs)
+		{
+			return get() - rhs;
+		}
+
+		InterfaceType operator*(const PropertyBase& rhs)
+		{
+			return get() * rhs.get();
+		}
+
+		InterfaceType operator*(InterfaceType rhs)
+		{
+			return get() * rhs;
+		}
+
+		InterfaceType operator/(const PropertyBase& rhs)
+		{
+			return get() / rhs.get();
+		}
+
+		InterfaceType operator/(InterfaceType rhs)
+		{
+			return get() / rhs;
+		}
+
+		InterfaceType operator+=(const PropertyBase& rhs)
+		{
+			InterfaceType ret = get() + rhs.get();
+			setter(ret);
+
+			return ret;
+		}
+
+		InterfaceType operator+=(InterfaceType rhs)
+		{
+			InterfaceType ret = get() + rhs;
+			setter(ret);
+
+			return ret;
+		}
+
+		InterfaceType operator-=(const PropertyBase& rhs)
+		{
+			InterfaceType ret = get() - rhs.get();
+			setter(ret);
+
+			return ret;
 
 		}
 
-		InterfaceType get()
+		InterfaceType operator-=(InterfaceType rhs)
 		{
-			return getter(value);
+			InterfaceType ret = get() - rhs;
+			setter(ret);
+
+			return ret;
 		}
 
-		InterfaceType get() const
+		InterfaceType operator*=(const PropertyBase& rhs)
 		{
-			return getter(value);
+			InterfaceType ret = get() * rhs.get();
+			setter(ret);
+
+			return ret;
 		}
 
-		InterfaceType operator=(InterfaceType rhs)
+		InterfaceType operator*=(InterfaceType rhs)
 		{
-			setter(rhs);
-			return rhs;
+			InterfaceType ret = get() * rhs;
+			setter(ret);
+
+			return ret;
 		}
 
-		operator InterfaceType()
+		InterfaceType operator/=(const PropertyBase& rhs)
 		{
-			return get();
+			InterfaceType ret = get() / rhs.get();
+			setter(ret);
+
+			return ret;
 		}
 
-		decltype(*Type()) operator*()
+		InterfaceType operator/=(InterfaceType rhs)
 		{
-			return *getter();
-		}
+			InterfaceType ret = get() / rhs;
+			setter(ret);
 
-		InterfaceType operator->()
-		{
-			return getter();
+			return ret;
 		}
-
-		const decltype(*Type()) operator*() const
-		{
-			return *getter();
-		}
-
-		const InterfaceType operator->() const
-		{
-			return getter();
-		}
-
-	private:
-		GetterType getter;
-		SetterType setter;
 	};
 
 	// Constructor
-	template <class Type, bool isAutoGenerated>
+	template <class Type, PropertyType PropType>
 	class PropertyConstructor;
 
 	// Auto generated
 	template <class Type>
-	class PropertyConstructor<Type, true> : public PropertyBase<Type>
+	class PropertyConstructor<Type, PropertyType::AutoGen> : public PropertyBase<Type, PropertyAccessorSaveType::Both>
 	{
 	public:
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
-		using GetterType = typename PropertyBase<Type>::GetterType;
-		using SetterType = typename PropertyBase<Type>::SetterType;
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
+
+		using GetterType = typename PropertyBase::GetterType;
+		using SetterType = typename PropertyBase::SetterType;
 
 	private:
 		using AutoGen = AutoGeneratedGetterSetter<Type, InterfaceType>;
@@ -311,381 +525,405 @@ namespace FTL
 
 	// Manual
 	template <class Type>
-	class PropertyConstructor<Type, false> : public PropertyBase<Type>
+	class PropertyConstructor<Type, PropertyType::Manual> : public PropertyBase<Type, PropertyAccessorSaveType::Both>
 	{
 	public:
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
-		using GetterType = typename PropertyBase<Type>::GetterType;
-		using SetterType = typename PropertyBase<Type>::SetterType;
+		using InterfaceType = typename PropertyBase::InterfaceType;
+		using GetterType = typename PropertyBase::GetterType;
+		using SetterType = typename PropertyBase::SetterType;
 
 		PropertyConstructor(GetterType getter, SetterType setter) : PropertyBase(getter, setter) {}
 	};
 
+	// Getter only
+	template <class Type>
+	class PropertyConstructor<Type, PropertyType::GetterOnly> : public PropertyBase<Type, PropertyAccessorSaveType::GetterOnly>
+	{
+	public:
+		using InterfaceType = typename PropertyBase::InterfaceType;
+		using GetterType = typename PropertyBase::GetterType;
+		using SetterType = typename PropertyBase::SetterType;
+
+		PropertyConstructor(GetterType getter) : PropertyBase(getter) {}
+	};
+
+	// Setter only
+	template <class Type>
+	class PropertyConstructor<Type, PropertyType::SetterOnly> : public PropertyBase<Type, PropertyAccessorSaveType::SetterOnly>
+	{
+	public:
+		using InterfaceType = typename PropertyBase::InterfaceType;
+		using GetterType = typename PropertyBase::GetterType;
+		using SetterType = typename PropertyBase::SetterType;
+
+		PropertyConstructor(SetterType setter) : PropertyBase(setter) {}
+	};
+
 	// Declare
-	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, bool isAutoGenerated, bool isPointer = IsPointer<Type>::value>
+	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, PropertyType PropType, bool isPointer = IsPointer<Type>::value>
 	class Property;
 
 	// Non-pointer specialization : Both public
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, false, false, isAutoGenerated, false> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, false, false, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Non-pointer specialization : Setter private, getter public
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, false, true, isAutoGenerated, false> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, false, true, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 	private:
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 	public:
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Non-pointer specialization : Setter public, Getter private
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, true, false, isAutoGenerated, false> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, true, false, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Non-pointer specialization : Both private
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, true, true, isAutoGenerated, false> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, true, true, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Both public
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, false, false, isAutoGenerated, true> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, false, false, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 
 		decltype(auto) operator*() const
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->() const
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Setter private, getter public
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, false, true, isAutoGenerated, true> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, false, true, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 	private:
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 	public:
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 
 		decltype(auto) operator*() const
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->() const
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Setter public, getter private
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, true, false, isAutoGenerated, true> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, true, false, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 
 		decltype(auto) operator*() const
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->() const
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 
 	// Pointer specialization : Both private
-	template <class OwnerClass, class Type, bool isAutoGenerated>
-	class Property<OwnerClass, Type, true, true, isAutoGenerated, true> : public PropertyConstructor<Type, isAutoGenerated>
+	template <class OwnerClass, class Type, PropertyType PropType>
+	class Property<OwnerClass, Type, true, true, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
 	public:
 		friend OwnerClass;
 
 		using PropertyConstructor::PropertyConstructor;
 
-		typedef typename PropertyBase<Type>::InterfaceType InterfaceType;
+		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyBase::get();
+			return PropertyGetterBase::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertyBase::operator=(rhs);
+			return PropertySetterBase::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyBase::operator InterfaceType();
+			return PropertyGetterBase::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 
 		decltype(auto) operator*() const
 		{
-			return PropertyBase::operator*();
+			return PropertyGetterBase::operator*();
 		}
 
 		decltype(auto) operator->() const
 		{
-			return PropertyBase::operator->();
+			return PropertyGetterBase::operator->();
 		}
 	};
 }

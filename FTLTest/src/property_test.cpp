@@ -13,30 +13,30 @@ namespace FTLTest
 	{
 	public:
 		// Value
-		Property<TestClass, int, false, false, true> defaultProp;
+		Property<TestClass, int, false, false, PropertyType::AutoGen> defaultProp;
 
-		Property<TestClass, int, true, true, false> prop1{ [this]() { return innerI1; }, [this](int val) { innerI1 = val * val; } };
-		Property<TestClass, int, false, true, false> prop2{ [this]() { return innerI2; }, [this](int val) { innerI2 = val * val; } };
-		Property<TestClass, int, true, false, false> prop3{ [this]() { return innerI3; }, [this](int val) { innerI3 = val * val; } };
-		Property<TestClass, int, false, false, false> prop4{ [this]() { return innerI4; }, [this](int val) { innerI4 = val * val; } };
+		Property<TestClass, int, true, true, PropertyType::Manual> prop1{ [this]() { return innerI1; }, [this](int val) { innerI1 = val * val; } };
+		Property<TestClass, int, false, true, PropertyType::Manual> prop2{ [this]() { return innerI2; }, [this](int val) { innerI2 = val * val; } };
+		Property<TestClass, int, true, false, PropertyType::Manual> prop3{ [this]() { return innerI3; }, [this](int val) { innerI3 = val * val; } };
+		Property<TestClass, int, false, false, PropertyType::Manual> prop4{ [this]() { return innerI4; }, [this](int val) { innerI4 = val * val; } };
 
 		int innerI1, innerI2, innerI3, innerI4;
 
 		int *pD, *p1, *p2, *p3, *p4;
 		int pID, pI1, pI2, pI3, pI4;
 
-		Property<TestClass, int*, false, false, true> pDefaultProp{ pD };
+		Property<TestClass, int*, false, false, PropertyType::AutoGen> pDefaultProp{ pD };
 
-		Property<TestClass, int*, true, true, false> pProp1{ [this]() { return p1; }, [this](int* val) { p1 = val; } };
-		Property<TestClass, int*, false, true, false> pProp2{ [this]() { return p2; }, [this](int* val) { p2 = val; } };
-		Property<TestClass, int*, true, false, false> pProp3{ [this]() { return p3; }, [this](int* val) { p3 = val; } };
-		Property<TestClass, int*, false, false, false> pProp4{ [this]() { return p4; }, [this](int* val) { p4 = val; } };
+		Property<TestClass, int*, true, true, PropertyType::Manual> pProp1{ [this]() { return p1; }, [this](int* val) { p1 = val; } };
+		Property<TestClass, int*, false, true, PropertyType::Manual> pProp2{ [this]() { return p2; }, [this](int* val) { p2 = val; } };
+		Property<TestClass, int*, true, false, PropertyType::Manual> pProp3{ [this]() { return p3; }, [this](int* val) { p3 = val; } };
+		Property<TestClass, int*, false, false, PropertyType::Manual> pProp4{ [this]() { return p4; }, [this](int* val) { p4 = val; } };
 
 		// Pointer
-		Property<TestClass, int*, false, false, true> ptrProp;
+		Property<TestClass, int*, false, false, PropertyType::AutoGen> ptrProp;
 
 		// Smart Pointer
-		Property<TestClass, shared_ptr<int>, false, false, true> smptrProp;
+		Property<TestClass, shared_ptr<int>, false, false, PropertyType::AutoGen> smptrProp;
 
 		void Test()
 		{

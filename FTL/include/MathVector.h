@@ -10,9 +10,9 @@ namespace FTL
 	public:
 		typedef ValueType ValueType;
 
-		Property<Vector, ValueType, false, false, true> Value[Dimension];
+		Property<Vector, ValueType, false, false, PropertyType::AutoGen> Value[Dimension];
 
-		Property<Vector, float, false, true, false> Magnitude
+		Property<Vector, float, false, true, PropertyType::Manual> Magnitude
 		{
 			[this]()
 			{
@@ -175,13 +175,13 @@ namespace FTL
 	class Vector2 : public Vector<ValueType, 2>
 	{
 	public:
-		Property<Vector2, ValueType, false, false, false> X
+		Property<Vector2, ValueType, false, false, PropertyType::Manual> X
 		{
 			[this]() -> ValueType { return Value[0]; },
 			[this](ValueType value) { Value[0] = value; }
 		};
 
-		Property<Vector2, ValueType, false, false, false> Y
+		Property<Vector2, ValueType, false, false, PropertyType::Manual> Y
 		{
 			[this]() -> ValueType { return Value[1]; },
 			[this](ValueType value) { Value[1] = value; }
@@ -202,19 +202,19 @@ namespace FTL
 	class Vector3 : public Vector<ValueType, 3>
 	{
 	public:
-		Property<Vector3, ValueType, false, false, false> X
+		Property<Vector3, ValueType, false, false, PropertyType::Manual> X
 		{
 			[this]() -> ValueType { return Value[0]; },
 			[this](ValueType value) { Value[0] = value; }
 		};
 
-		Property<Vector3, ValueType, false, false, false> Y
+		Property<Vector3, ValueType, false, false, PropertyType::Manual> Y
 		{
 			[this]() -> ValueType { return Value[1]; },
 			[this](ValueType value) { Value[1] = value; }
 		};
 
-		Property<Vector3, ValueType, false, false, false> Z
+		Property<Vector3, ValueType, false, false, PropertyType::Manual> Z
 		{
 			[this]() -> ValueType { return Value[2]; },
 			[this](ValueType value) { Value[2] = value; }
