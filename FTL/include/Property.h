@@ -24,18 +24,18 @@ namespace FTL
 	template <class Type, bool isReference = std::is_fundamental<Type>::value == false && IsPointer<Type>::value == false>
 	class PropertyInterfaceType;
 
-	template <class Type>
-	class PropertyInterfaceType<Type, false>
+	template <class _Type>
+	class PropertyInterfaceType<_Type, false>
 	{
 	public:
-		typedef Type Type;
+		typedef _Type Type;
 	};
 
-	template <class Type>
-	class PropertyInterfaceType<Type, true>
+	template <class _Type>
+	class PropertyInterfaceType<_Type, true>
 	{
 	public:
-		typedef Type& Type;
+		typedef _Type& Type;
 	};
 
 	// Default getter & setter
