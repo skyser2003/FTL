@@ -233,7 +233,7 @@ namespace FTL
 		PropertyBase() = delete;
 		PropertyBase(const PropertyBase& rhs) = delete;
 
-		PropertyBase(GetterType getter) : PropertyGetterBase(getter) {}
+		PropertyBase(GetterType getter) : PropertyGetterBase<Type>(getter) {}
 
 		InterfaceType operator+(const PropertyBase& rhs)
 		{
@@ -357,7 +357,7 @@ namespace FTL
 		PropertyBase() = delete;
 		PropertyBase(const PropertyBase& rhs) = delete;
 
-		PropertyBase(SetterType setter) : PropertySetterBase(setter) {}
+		PropertyBase(SetterType setter) : PropertySetterBase<Type>(setter) {}
 	};
 
 	// Base class both specialization
@@ -376,7 +376,7 @@ namespace FTL
 		PropertyBase() = delete;
 		PropertyBase(const PropertyBase& rhs) = delete;
 
-		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterBase(getter), PropertySetterBase(setter) {}
+		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterBase<Type>(getter), PropertySetterBase<Type>(setter) {}
 
 		InterfaceType operator+(const PropertyBase& rhs)
 		{
@@ -503,14 +503,14 @@ namespace FTL
 
 	public:
 		PropertyConstructor()
-			: PropertyBase
+			: PropertyBase<Type, PropertyAccessorSaveType::Both>
 			(
 				std::bind(&AutoGen::get, &this->autoGen),
 				std::bind(&AutoGen::set, &this->autoGen, std::placeholders::_1)
 			) {}
 
 		explicit PropertyConstructor(InterfaceType value) : autoGen(value),
-			PropertyBase
+			PropertyBase<Type, PropertyAccessorSaveType::Both>
 			(
 				std::bind(&AutoGen::get, &this->autoGen),
 				std::bind(&AutoGen::set, &this->autoGen, std::placeholders::_1)
@@ -529,7 +529,7 @@ namespace FTL
 		using GetterType = typename PropertyBase::GetterType;
 		using SetterType = typename PropertyBase::SetterType;
 
-		PropertyConstructor(GetterType getter, SetterType setter) : PropertyBase(getter, setter) {}
+		PropertyConstructor(GetterType getter, SetterType setter) : PropertyBase<Type, PropertyAccessorSaveType::Both>(getter, setter) {}
 	};
 
 	// Getter only
@@ -541,7 +541,7 @@ namespace FTL
 		using GetterType = typename PropertyBase::GetterType;
 		using SetterType = typename PropertyBase::SetterType;
 
-		PropertyConstructor(GetterType getter) : PropertyBase(getter) {}
+		PropertyConstructor(GetterType getter) : PropertyBase<Type, PropertyAccessorSaveType::GetterOnly>(getter) {}
 	};
 
 	// Setter only
@@ -553,7 +553,7 @@ namespace FTL
 		using GetterType = typename PropertyBase::GetterType;
 		using SetterType = typename PropertyBase::SetterType;
 
-		PropertyConstructor(SetterType setter) : PropertyBase(setter) {}
+		PropertyConstructor(SetterType setter) : PropertyBase<Type, PropertyAccessorSaveType::SetterOnly>(setter) {}
 	};
 
 	// Declare
