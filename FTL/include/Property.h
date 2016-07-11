@@ -154,12 +154,12 @@ namespace FTL
 
 		InterfaceType get()
 		{
-			return getter(value);
+			return getter();
 		}
 
 		InterfaceType get() const
 		{
-			return getter(value);
+			return getter();
 		}
 
 		operator InterfaceType()
