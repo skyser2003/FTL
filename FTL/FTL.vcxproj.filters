@@ -24,6 +24,9 @@
     <ClInclude Include="include\PointerDataType.h">
       <Filter>TypeTrait</Filter>
     </ClInclude>
+    <ClInclude Include="include\VoidTemplate.h">
+      <Filter>TypeTrait</Filter>
+    </ClInclude>
     <ClInclude Include="include\IsPointer.h">
       <Filter>TypeTrait</Filter>
     </ClInclude>
