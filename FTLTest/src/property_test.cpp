@@ -90,8 +90,6 @@ namespace FTLTest
 			Assert::AreEqual(false, IsGetterPrivate(cls.pProp4, nullptr));
 
 			// Setter privateness
-			// Sealed until Visual Studio's bug is fixed
-			/*
 			Assert::AreEqual(false, IsSetterPrivate(cls.defaultProp, nullptr));
 			Assert::AreEqual(true, IsSetterPrivate(cls.prop1, nullptr));
 			Assert::AreEqual(true, IsSetterPrivate(cls.prop2, nullptr));
@@ -103,7 +101,6 @@ namespace FTLTest
 			Assert::AreEqual(true, IsSetterPrivate(cls.pProp2, nullptr));
 			Assert::AreEqual(false, IsSetterPrivate(cls.pProp3, nullptr));
 			Assert::AreEqual(false, IsSetterPrivate(cls.pProp4, nullptr));
-			*/
 		}
 
 		TEST_METHOD(PropertyTest2)
@@ -206,13 +203,13 @@ namespace FTLTest
 		}
 
 		template <class T>
-		constexpr bool IsSetterPrivate(const T&, ...) const
+		constexpr bool IsSetterPrivate(T&, ...) const
 		{
 			return true;
 		}
 
 		template <class T>
-		constexpr bool IsSetterPrivate(const T&, decltype(typename declval<T>().operator=(T()))* ptr) const
+		constexpr bool IsSetterPrivate(T& val, decltype(val = typename T::InterfaceType())* ptr) const
 		{
 			return false;
 		}
