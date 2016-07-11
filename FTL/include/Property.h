@@ -224,7 +224,6 @@ namespace FTL
 	public:
 		static const bool isPointer = IsPointer<Type>::value;
 
-		typedef Type Type;
 		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
 
 		using GetterType = typename PropertyGetterBase<Type>::GetterType;
@@ -349,7 +348,6 @@ namespace FTL
 	public:
 		static const bool isPointer = IsPointer<Type>::value;
 
-		typedef Type Type;
 		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
 
 		using GetterType = typename PropertyGetterBase<Type>::GetterType;
@@ -369,7 +367,6 @@ namespace FTL
 	public:
 		static const bool isPointer = IsPointer<Type>::value;
 
-		typedef Type Type;
 		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
 
 		using GetterType = typename PropertyGetterBase<Type>::GetterType;
