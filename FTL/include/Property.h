@@ -235,6 +235,8 @@ namespace FTL
 
 		PropertyBase(GetterType getter) : PropertyGetterBase<Type>(getter) {}
 
+		using PropertyGetterBase<Type>::get;
+
 		InterfaceType operator+(const PropertyBase& rhs)
 		{
 			return get() + rhs.get();
@@ -377,6 +379,8 @@ namespace FTL
 		PropertyBase(const PropertyBase& rhs) = delete;
 
 		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterBase<Type>(getter), PropertySetterBase<Type>(setter) {}
+
+		using PropertyGetterBase<Type>::get;
 
 		InterfaceType operator+(const PropertyBase& rhs)
 		{
