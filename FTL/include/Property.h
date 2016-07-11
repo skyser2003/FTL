@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PointerDataType.h"
+#include "IsPointer.h"
 
 namespace FTL
 {
