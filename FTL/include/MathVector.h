@@ -8,8 +8,6 @@ namespace FTL
 	class Vector
 	{
 	public:
-		typedef ValueType ValueType;
-
 		Property<Vector, ValueType, false, false, PropertyType::AutoGen> Value[Dimension];
 
 		Property<Vector, float, false, true, PropertyType::Manual> Magnitude
