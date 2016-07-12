@@ -187,7 +187,7 @@ namespace FTL
 
 		Vector2() {}
 
-		Vector2(const Vector2& rhs) : Vector(rhs) {}
+		Vector2(const Vector2& rhs) : Vector<ValueType, 2>(rhs) {}
 
 		void Set(ValueType x, ValueType y)
 		{
@@ -220,7 +220,7 @@ namespace FTL
 
 		Vector3() {}
 
-		Vector3(const Vector3& rhs) : Vector(rhs) {}
+		Vector3(const Vector3& rhs) : Vector<ValueType, 3>(rhs) {}
 
 		void Set(ValueType x, ValueType y, ValueType z)
 		{
