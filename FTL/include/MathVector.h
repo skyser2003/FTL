@@ -175,14 +175,14 @@ namespace FTL
 	public:
 		Property<Vector2, ValueType, false, false, PropertyType::Manual> X
 		{
-			[this]() -> ValueType { return Value[0]; },
-			[this](ValueType value) { Value[0] = value; }
+			[this]() -> ValueType { return this->Value[0]; },
+			[this](ValueType value) { this->Value[0] = value; }
 		};
 
 		Property<Vector2, ValueType, false, false, PropertyType::Manual> Y
 		{
-			[this]() -> ValueType { return Value[1]; },
-			[this](ValueType value) { Value[1] = value; }
+			[this]() -> ValueType { return this->Value[1]; },
+			[this](ValueType value) { this->Value[1] = value; }
 		};
 
 		Vector2() {}
@@ -202,20 +202,20 @@ namespace FTL
 	public:
 		Property<Vector3, ValueType, false, false, PropertyType::Manual> X
 		{
-			[this]() -> ValueType { return Value[0]; },
-			[this](ValueType value) { Value[0] = value; }
+			[this]() -> ValueType { return this->Value[0]; },
+			[this](ValueType value) { this->Value[0] = value; }
 		};
 
 		Property<Vector3, ValueType, false, false, PropertyType::Manual> Y
 		{
-			[this]() -> ValueType { return Value[1]; },
-			[this](ValueType value) { Value[1] = value; }
+			[this]() -> ValueType { return this->Value[1]; },
+			[this](ValueType value) { this->Value[1] = value; }
 		};
 
 		Property<Vector3, ValueType, false, false, PropertyType::Manual> Z
 		{
-			[this]() -> ValueType { return Value[2]; },
-			[this](ValueType value) { Value[2] = value; }
+			[this]() -> ValueType { return this->Value[2]; },
+			[this](ValueType value) { this->Value[2] = value; }
 		};
 
 		Vector3() {}
