@@ -568,36 +568,39 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, false, false, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -605,38 +608,41 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, false, true, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 	private:
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 	public:
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -644,37 +650,40 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, true, false, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -682,37 +691,40 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, true, true, PropType, false> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -720,31 +732,34 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, false, false, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -754,7 +769,7 @@ namespace FTL
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 
 		decltype(auto) operator*() const
@@ -764,7 +779,7 @@ namespace FTL
 
 		decltype(auto) operator->() const
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -772,33 +787,36 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, false, true, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 	private:
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 	public:
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -808,7 +826,7 @@ namespace FTL
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 
 		decltype(auto) operator*() const
@@ -818,7 +836,7 @@ namespace FTL
 
 		decltype(auto) operator->() const
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -826,32 +844,35 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, true, false, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -861,7 +882,7 @@ namespace FTL
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 
 		decltype(auto) operator*() const
@@ -871,7 +892,7 @@ namespace FTL
 
 		decltype(auto) operator->() const
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 
@@ -879,32 +900,35 @@ namespace FTL
 	template <class OwnerClass, class Type, PropertyType PropType>
 	class Property<OwnerClass, Type, true, true, PropType, true> : public PropertyConstructor<Type, PropType>
 	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType>;
+
 	public:
 		friend OwnerClass;
 
-		using PropertyConstructor::PropertyConstructor;
+		using Parent::Parent;
 
-		using InterfaceType = typename PropertyConstructor<Type, PropType>::InterfaceType;
+		using InterfaceType = typename Parent::InterfaceType;
 
 	private:
 		decltype(auto) get()
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) get() const
 		{
-			return PropertyGetterBase::get();
+			return PropertyGetterBase<Type>::get();
 		}
 
 		decltype(auto) operator=(InterfaceType rhs)
 		{
-			return PropertySetterBase::operator=(rhs);
+			return PropertySetterBase<Type>::operator=(rhs);
 		}
 
 		operator InterfaceType()
 		{
-			return PropertyGetterBase::operator InterfaceType();
+			return PropertyGetterBase<Type>::operator InterfaceType();
 		}
 
 		decltype(auto) operator*()
@@ -914,7 +938,7 @@ namespace FTL
 
 		decltype(auto) operator->()
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 
 		decltype(auto) operator*() const
@@ -924,7 +948,7 @@ namespace FTL
 
 		decltype(auto) operator->() const
 		{
-			return PropertyGetterBase::operator->();
+			return PropertyGetterBase<Type>::operator->();
 		}
 	};
 }
