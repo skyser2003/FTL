@@ -764,7 +764,7 @@ namespace FTL
 
 		decltype(auto) operator*()
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->()
@@ -774,7 +774,7 @@ namespace FTL
 
 		decltype(auto) operator*() const
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->() const
@@ -821,7 +821,7 @@ namespace FTL
 
 		decltype(auto) operator*()
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->()
@@ -831,7 +831,7 @@ namespace FTL
 
 		decltype(auto) operator*() const
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->() const
@@ -877,7 +877,7 @@ namespace FTL
 
 		decltype(auto) operator*()
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->()
@@ -887,7 +887,7 @@ namespace FTL
 
 		decltype(auto) operator*() const
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->() const
@@ -933,7 +933,7 @@ namespace FTL
 
 		decltype(auto) operator*()
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->()
@@ -943,7 +943,7 @@ namespace FTL
 
 		decltype(auto) operator*() const
 		{
-			return PropertyGetterBase::operator*();
+			return PropertyGetterBase<Type>::operator*();
 		}
 
 		decltype(auto) operator->() const
