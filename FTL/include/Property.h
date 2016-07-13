@@ -276,71 +276,6 @@ namespace FTL
 		{
 			return get() / rhs;
 		}
-
-		InterfaceType operator+=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() + rhs.get();
-			setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator+=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() + rhs;
-			setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator-=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() - rhs.get();
-			setter(ret);
-
-			return ret;
-
-		}
-
-		InterfaceType operator-=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() - rhs;
-			setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator*=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() * rhs.get();
-			setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator*=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() * rhs;
-			setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator/=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() / rhs.get();
-			setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator/=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() / rhs;
-			setter(ret);
-
-			return ret;
-		}
 	};
 
 	// Base class setter only specialization
@@ -425,7 +360,7 @@ namespace FTL
 		InterfaceType operator+=(const PropertyBase& rhs)
 		{
 			InterfaceType ret = get() + rhs.get();
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 		}
@@ -433,7 +368,7 @@ namespace FTL
 		InterfaceType operator+=(InterfaceType rhs)
 		{
 			InterfaceType ret = get() + rhs;
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 		}
@@ -441,7 +376,7 @@ namespace FTL
 		InterfaceType operator-=(const PropertyBase& rhs)
 		{
 			InterfaceType ret = get() - rhs.get();
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 
@@ -450,7 +385,7 @@ namespace FTL
 		InterfaceType operator-=(InterfaceType rhs)
 		{
 			InterfaceType ret = get() - rhs;
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 		}
@@ -466,7 +401,7 @@ namespace FTL
 		InterfaceType operator*=(InterfaceType rhs)
 		{
 			InterfaceType ret = get() * rhs;
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 		}
@@ -474,7 +409,7 @@ namespace FTL
 		InterfaceType operator/=(const PropertyBase& rhs)
 		{
 			InterfaceType ret = get() / rhs.get();
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 		}
@@ -482,7 +417,7 @@ namespace FTL
 		InterfaceType operator/=(InterfaceType rhs)
 		{
 			InterfaceType ret = get() / rhs;
-			setter(ret);
+			this->setter(ret);
 
 			return ret;
 		}
