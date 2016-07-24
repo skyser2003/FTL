@@ -513,7 +513,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator->();
 		}
 
-		InterfaceType operator+(const PropertyBase& rhs) const
+		InterfaceType operator+(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator+(rhs);
 		}
@@ -523,7 +523,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator+(rhs);
 		}
 
-		InterfaceType operator-(const PropertyBase& rhs) const
+		InterfaceType operator-(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator-(rhs);
 		}
@@ -533,7 +533,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator-(rhs);
 		}
 
-		InterfaceType operator*(const PropertyBase& rhs) const
+		InterfaceType operator*(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator*(rhs);
 		}
@@ -543,7 +543,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator*(rhs);
 		}
 
-		InterfaceType operator/(const PropertyBase& rhs) const
+		InterfaceType operator/(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator/(rhs);
 		}
@@ -553,7 +553,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator/(rhs);
 		}
 
-		InterfaceType operator+=(const PropertyBase& rhs)
+		InterfaceType operator+=(const Property& rhs)
 		{
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator+=(rhs);
 		}
@@ -563,7 +563,7 @@ namespace FTL
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator+=(rhs);
 		}
 
-		InterfaceType operator-=(const PropertyBase& rhs)
+		InterfaceType operator-=(const Property& rhs)
 		{
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator-=(rhs);
 		}
@@ -573,7 +573,7 @@ namespace FTL
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator-=(rhs);
 		}
 
-		InterfaceType operator*=(const PropertyBase& rhs)
+		InterfaceType operator*=(const Property& rhs)
 		{
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator*=(rhs);
 		}
@@ -583,7 +583,7 @@ namespace FTL
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator*=(rhs);
 		}
 
-		InterfaceType operator/=(const PropertyBase& rhs)
+		InterfaceType operator/=(const Property& rhs)
 		{
 			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator/=(rhs);
 		}
@@ -635,7 +635,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator->();
 		}
 
-		InterfaceType operator+(const PropertyBase& rhs) const
+		InterfaceType operator+(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator+(rhs);
 		}
@@ -645,7 +645,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator+(rhs);
 		}
 
-		InterfaceType operator-(const PropertyBase& rhs) const
+		InterfaceType operator-(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator-(rhs);
 		}
@@ -655,7 +655,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator-(rhs);
 		}
 
-		InterfaceType operator*(const PropertyBase& rhs) const
+		InterfaceType operator*(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator*(rhs);
 		}
@@ -665,7 +665,7 @@ namespace FTL
 			return PropertyGetterBase<Type>::operator*(rhs);
 		}
 
-		InterfaceType operator/(const PropertyBase& rhs) const
+		InterfaceType operator/(const Property& rhs) const
 		{
 			return PropertyGetterBase<Type>::operator/(rhs);
 		}
