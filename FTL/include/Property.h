@@ -96,42 +96,42 @@ namespace FTL
 			return &getter();
 		}
 
-		InterfaceType operator+(const PropertyGetterBase& rhs)
+		InterfaceType operator+(const PropertyGetterBase& rhs) const
 		{
 			return get() + rhs.get();
 		}
 
-		InterfaceType operator+(InterfaceType rhs)
+		InterfaceType operator+(InterfaceType rhs) const
 		{
 			return get() + rhs;
 		}
 
-		InterfaceType operator-(const PropertyGetterBase& rhs)
+		InterfaceType operator-(const PropertyGetterBase& rhs) const
 		{
 			return get() - rhs.get();
 		}
 
-		InterfaceType operator-(InterfaceType rhs)
+		InterfaceType operator-(InterfaceType rhs) const
 		{
 			return get() - rhs;
 		}
 
-		InterfaceType operator*(const PropertyGetterBase& rhs)
+		InterfaceType operator*(const PropertyGetterBase& rhs) const
 		{
 			return get() * rhs.get();
 		}
 
-		InterfaceType operator*(InterfaceType rhs)
+		InterfaceType operator*(InterfaceType rhs) const
 		{
 			return get() * rhs;
 		}
 
-		InterfaceType operator/(const PropertyGetterBase& rhs)
+		InterfaceType operator/(const PropertyGetterBase& rhs) const
 		{
 			return get() / rhs.get();
 		}
 
-		InterfaceType operator/(InterfaceType rhs)
+		InterfaceType operator/(InterfaceType rhs) const
 		{
 			return get() / rhs;
 		}
@@ -317,109 +317,84 @@ namespace FTL
 
 		using PropertyGetterBase<Type>::get;
 
-		InterfaceType operator+(const PropertyBase& rhs)
+		InterfaceType operator+(const PropertyBase& rhs) const
 		{
 			return get() + rhs.get();
 		}
 
-		InterfaceType operator+(InterfaceType rhs)
+		InterfaceType operator+(InterfaceType rhs) const
 		{
 			return get() + rhs;
 		}
 
-		InterfaceType operator-(const PropertyBase& rhs)
+		InterfaceType operator-(const PropertyBase& rhs) const
 		{
 			return get() - rhs.get();
 		}
 
-		InterfaceType operator-(InterfaceType rhs)
+		InterfaceType operator-(InterfaceType rhs) const
 		{
 			return get() - rhs;
 		}
 
-		InterfaceType operator*(const PropertyBase& rhs)
+		InterfaceType operator*(const PropertyBase& rhs) const
 		{
 			return get() * rhs.get();
 		}
 
-		InterfaceType operator*(InterfaceType rhs)
+		InterfaceType operator*(InterfaceType rhs) const
 		{
 			return get() * rhs;
 		}
 
-		InterfaceType operator/(const PropertyBase& rhs)
+		InterfaceType operator/(const PropertyBase& rhs) const
 		{
 			return get() / rhs.get();
 		}
 
-		InterfaceType operator/(InterfaceType rhs)
+		InterfaceType operator/(InterfaceType rhs) const
 		{
 			return get() / rhs;
 		}
 
 		InterfaceType operator+=(const PropertyBase& rhs)
 		{
-			InterfaceType ret = get() + rhs.get();
-			this->setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator+=(rhs);
 		}
 
 		InterfaceType operator+=(InterfaceType rhs)
 		{
-			InterfaceType ret = get() + rhs;
-			this->setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator+=(rhs);
 		}
 
 		InterfaceType operator-=(const PropertyBase& rhs)
 		{
-			InterfaceType ret = get() - rhs.get();
-			this->setter(ret);
-
-			return ret;
-
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator-=(rhs);
 		}
 
 		InterfaceType operator-=(InterfaceType rhs)
 		{
-			InterfaceType ret = get() - rhs;
-			this->setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator-=(rhs);
 		}
 
 		InterfaceType operator*=(const PropertyBase& rhs)
 		{
-			InterfaceType ret = get() * rhs.get();
-			setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator*=(rhs);
 		}
 
 		InterfaceType operator*=(InterfaceType rhs)
 		{
-			InterfaceType ret = get() * rhs;
-			this->setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator*=(rhs);
 		}
 
 		InterfaceType operator/=(const PropertyBase& rhs)
 		{
-			InterfaceType ret = get() / rhs.get();
-			this->setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator/=(rhs);
 		}
 
 		InterfaceType operator/=(InterfaceType rhs)
 		{
-			InterfaceType ret = get() / rhs;
-			this->setter(ret);
-
-			return ret;
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator/=(rhs);
 		}
 	};
 
@@ -537,6 +512,86 @@ namespace FTL
 		{
 			return PropertyGetterBase<Type>::operator->();
 		}
+
+		InterfaceType operator+(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator+(rhs);
+		}
+
+		InterfaceType operator+(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator+(rhs);
+		}
+
+		InterfaceType operator-(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator-(rhs);
+		}
+
+		InterfaceType operator-(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator-(rhs);
+		}
+
+		InterfaceType operator*(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator*(rhs);
+		}
+
+		InterfaceType operator*(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator*(rhs);
+		}
+
+		InterfaceType operator/(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator/(rhs);
+		}
+
+		InterfaceType operator/(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator/(rhs);
+		}
+
+		InterfaceType operator+=(const PropertyBase& rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator+=(rhs);
+		}
+
+		InterfaceType operator+=(InterfaceType rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator+=(rhs);
+		}
+
+		InterfaceType operator-=(const PropertyBase& rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator-=(rhs);
+		}
+
+		InterfaceType operator-=(InterfaceType rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator-=(rhs);
+		}
+
+		InterfaceType operator*=(const PropertyBase& rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator*=(rhs);
+		}
+
+		InterfaceType operator*=(InterfaceType rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator*=(rhs);
+		}
+
+		InterfaceType operator/=(const PropertyBase& rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator/=(rhs);
+		}
+
+		InterfaceType operator/=(InterfaceType rhs)
+		{
+			return PropertyBase<Type, PropertyAccessorSaveType::Both>::operator/=(rhs);
+		}
 	};
 
 	// Non-pointer specialization : Setter private, getter public
@@ -578,6 +633,46 @@ namespace FTL
 		decltype(auto) operator->()
 		{
 			return PropertyGetterBase<Type>::operator->();
+		}
+
+		InterfaceType operator+(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator+(rhs);
+		}
+
+		InterfaceType operator+(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator+(rhs);
+		}
+
+		InterfaceType operator-(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator-(rhs);
+		}
+
+		InterfaceType operator-(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator-(rhs);
+		}
+
+		InterfaceType operator*(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator*(rhs);
+		}
+
+		InterfaceType operator*(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator*(rhs);
+		}
+
+		InterfaceType operator/(const PropertyBase& rhs) const
+		{
+			return PropertyGetterBase<Type>::operator/(rhs);
+		}
+
+		InterfaceType operator/(InterfaceType rhs) const
+		{
+			return PropertyGetterBase<Type>::operator/(rhs);
 		}
 	};
 
