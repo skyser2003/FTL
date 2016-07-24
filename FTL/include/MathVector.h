@@ -10,7 +10,7 @@ namespace FTL
 	public:
 		Property<Vector, ValueType, false, false, PropertyType::AutoGen> Value[Dimension];
 
-		Property<Vector, float, false, true, PropertyType::Manual> Magnitude
+		Property<Vector, float, false, true, PropertyType::GetterOnly> Magnitude
 		{
 			[this]()
 			{
@@ -22,10 +22,6 @@ namespace FTL
 				}
 
 				return value;
-			},
-			[this](float value)
-			{
-				// Nothing
 			}
 		};
 
