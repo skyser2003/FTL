@@ -181,6 +181,11 @@ namespace FTL
 	class Vector2 : public Vector<ValueType, 2>
 	{
 	public:
+		Vector2(ValueType x, ValueType y)
+		{
+			Set(x, y);
+		}
+
 		Property<Vector2, ValueType, false, false, PropertyType::Manual> X
 		{
 			[this]() -> ValueType { return this->Value[0]; },
@@ -208,6 +213,11 @@ namespace FTL
 	class Vector3 : public Vector<ValueType, 3>
 	{
 	public:
+		Vector3(ValueType x, ValueType y, ValueType z)
+		{
+			Set(x, y, z);
+		}
+
 		Property<Vector3, ValueType, false, false, PropertyType::Manual> X
 		{
 			[this]() -> ValueType { return this->Value[0]; },
