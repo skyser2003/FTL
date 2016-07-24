@@ -128,6 +128,16 @@ namespace FTL
 			return *this;
 		}
 
+		void Normalize()
+		{
+			float magnitude = Magnitude;
+
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] /= magnitude;
+			}
+		}
+
 		void Set(ValueType valueArray[Dimension])
 		{
 			for (int i = 0; i < Dimension; ++i)
