@@ -4,10 +4,12 @@
 
 namespace FTL
 {
-	template <class ValueType, int Dimension>
+	template <class ValueType, int _Dimension>
 	class Vector
 	{
 	public:
+		static constexpr int Dimension = _Dimension;
+
 		Property<Vector, ValueType, false, false, PropertyType::AutoGen> Value[Dimension];
 
 		Property<Vector, float, false, true, PropertyType::GetterOnly> Magnitude
@@ -225,6 +227,106 @@ namespace FTL
 			Z = z;
 		}
 	};
+
+	template <template <class> class VectorOrigin, class ValueType>
+	VectorOrigin<ValueType> operator+(const VectorOrigin<ValueType>& lhs, const VectorOrigin<ValueType>& rhs)
+	{
+		VectorOrigin<ValueType> ret;
+
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			ret.Value[i] = lhs.Value[i] + rhs.Value[i];
+		}
+
+		return ret;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType>
+	VectorOrigin<ValueType> operator-(const VectorOrigin<ValueType>& lhs, const VectorOrigin<ValueType>& rhs)
+	{
+		VectorOrigin<ValueType> ret;
+
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			ret.Value[i] = lhs.Value[i] - rhs.Value[i];
+		}
+
+		return ret;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType, class MultiplierType>
+	VectorOrigin<ValueType> operator*(const VectorOrigin<ValueType>& lhs, MultiplierType rhs)
+	{
+		VectorOrigin<ValueType> ret;
+
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			ret.Value[i] = lhs.Value[i] * rhs;
+		}
+
+		return ret;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType, class MultiplierType>
+	VectorOrigin<ValueType> operator/(const VectorOrigin<ValueType>& lhs, MultiplierType rhs)
+	{
+		VectorOrigin<ValueType> ret;
+
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			ret.Value[i] = lhs.Value[i] / rhs;
+		}
+
+		return ret;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType>
+	VectorOrigin<ValueType> operator+=(VectorOrigin<ValueType>& lhs, VectorOrigin<ValueType> rhs)
+	{
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			lhs.Value[i] += rhs.Value[i];
+		}
+
+		return lhs;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType>
+	VectorOrigin<ValueType> operator-=(VectorOrigin<ValueType>& lhs, VectorOrigin<ValueType> rhs)
+	{
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			lhs.Value[i] -= rhs.Value[i];
+		}
+
+		return lhs;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType, class MultiplierType>
+	VectorOrigin<ValueType> operator*=(VectorOrigin<ValueType>& lhs, MultiplierType rhs)
+	{
+		VectorOrigin<ValueType> ret;
+
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			lhs.Value[i] *= rhs;
+		}
+
+		return lhs;
+	}
+
+	template <template <class> class VectorOrigin, class ValueType, class MultiplierType>
+	VectorOrigin<ValueType> operator/=(VectorOrigin<ValueType>& lhs, MultiplierType rhs)
+	{
+		VectorOrigin<ValueType> ret;
+
+		for (int i = 0; i < VectorOrigin<ValueType>::Dimension; ++i)
+		{
+			lhs.Value[i] /= rhs;
+		}
+
+		return lhs;
+	}
 
 	using Vector2i = Vector2<int>;
 	using Vector3i = Vector3<int>;
