@@ -20,7 +20,7 @@ namespace FTL
 
 				for (int i = 0; i < Dimension; ++i)
 				{
-					value += Value[i].get() * Value[i].get();
+					value += Value[i] * Value[i];
 				}
 
 				return value;
