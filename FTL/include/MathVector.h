@@ -218,7 +218,7 @@ namespace FTL
 		{
 			for (int i = 0; i < Dimension; ++i)
 			{
-				Value[i] = rhs.Value[i].get();
+				this->Value[i] = rhs.Value[i].get();
 			}
 
 			return *this;
@@ -268,7 +268,7 @@ namespace FTL
 		{
 			for (int i = 0; i < Dimension; ++i)
 			{
-				Value[i] = rhs.Value[i].get();
+				this->Value[i] = rhs.Value[i].get();
 			}
 
 			return *this;
