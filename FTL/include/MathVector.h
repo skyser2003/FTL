@@ -36,6 +36,16 @@ namespace FTL
 			}
 		}
 
+		Vector& operator=(const Vector& rhs)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] = rhs.Value[i].get();
+			}
+
+			return *this;
+		}
+
 		Vector operator+(const Vector& rhs)
 		{
 			Vector ret;
@@ -202,6 +212,16 @@ namespace FTL
 
 		Vector2(const Vector2& rhs) : Vector<ValueType, 2>(rhs) {}
 
+		Vector2& operator=(const Vector2& rhs)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] = rhs.Value[i].get();
+			}
+
+			return *this;
+		}
+
 		void Set(ValueType x, ValueType y)
 		{
 			X = x;
@@ -239,6 +259,16 @@ namespace FTL
 		Vector3() {}
 
 		Vector3(const Vector3& rhs) : Vector<ValueType, 3>(rhs) {}
+
+		Vector3& operator=(const Vector3& rhs)
+		{
+			for (int i = 0; i < Dimension; ++i)
+			{
+				Value[i] = rhs.Value[i].get();
+			}
+
+			return *this;
+		}
 
 		void Set(ValueType x, ValueType y, ValueType z)
 		{
