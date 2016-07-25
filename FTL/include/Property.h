@@ -512,6 +512,8 @@ namespace FTL
 
 		using InterfaceType = typename Parent::InterfaceType;
 
+		Property& operator=(const Property& rhs) = delete;
+
 		decltype(auto) get()
 		{
 			return PropertyGetterBase<Type>::get();
@@ -632,6 +634,8 @@ namespace FTL
 
 		using InterfaceType = typename Parent::InterfaceType;
 
+		Property& operator=(const Property& rhs) = delete;
+
 		decltype(auto) get()
 		{
 			return PropertyGetterBase<Type>::get();
@@ -714,6 +718,8 @@ namespace FTL
 
 		using InterfaceType = typename Parent::InterfaceType;
 
+		Property& operator=(const Property& rhs) = delete;
+
 		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertySetterBase<Type>::operator=(rhs);
@@ -755,6 +761,8 @@ namespace FTL
 
 		using InterfaceType = typename Parent::InterfaceType;
 
+		Property& operator=(const Property& rhs) = delete;
+
 	private:
 		decltype(auto) get()
 		{
@@ -795,6 +803,8 @@ namespace FTL
 		using Parent::Parent;
 
 		using InterfaceType = typename Parent::InterfaceType;
+
+		Property& operator=(const Property& rhs) = delete;
 
 		decltype(auto) get()
 		{
@@ -850,6 +860,8 @@ namespace FTL
 		using Parent::Parent;
 
 		using InterfaceType = typename Parent::InterfaceType;
+
+		Property& operator=(const Property& rhs) = delete;
 
 		decltype(auto) get()
 		{
@@ -908,6 +920,8 @@ namespace FTL
 
 		using InterfaceType = typename Parent::InterfaceType;
 
+		Property& operator=(const Property& rhs) = delete;
+
 		decltype(auto) operator=(InterfaceType rhs)
 		{
 			return PropertySetterBase<Type>::operator=(rhs);
@@ -963,6 +977,8 @@ namespace FTL
 		using Parent::Parent;
 
 		using InterfaceType = typename Parent::InterfaceType;
+
+		Property& operator=(const Property& rhs) = delete;
 
 	private:
 		decltype(auto) get()
