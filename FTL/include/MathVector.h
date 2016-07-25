@@ -191,6 +191,8 @@ namespace FTL
 	class Vector2 : public Vector<ValueType, 2>
 	{
 	public:
+		using Vector<ValueType, 2>::Dimension;
+
 		Vector2(ValueType x, ValueType y)
 		{
 			Set(x, y);
@@ -233,6 +235,8 @@ namespace FTL
 	class Vector3 : public Vector<ValueType, 3>
 	{
 	public:
+		using Vector<ValueType, 3>::Dimension;
+
 		Vector3(ValueType x, ValueType y, ValueType z)
 		{
 			Set(x, y, z);
