@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include "Property.h"
 
 namespace FTL
@@ -22,6 +24,8 @@ namespace FTL
 				{
 					value += Value[i] * Value[i];
 				}
+
+				value = std::sqrt(value);
 
 				return value;
 			}
