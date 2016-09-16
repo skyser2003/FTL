@@ -38,10 +38,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="Property.natvis">
+    <Natvis Include="natvis\Property.natvis">
       <Filter>Natvis</Filter>
     </Natvis>
-    <Natvis Include="MathVector.natvis">
+    <Natvis Include="natvis\MathVector.natvis">
       <Filter>Natvis</Filter>
     </Natvis>
   </ItemGroup>
