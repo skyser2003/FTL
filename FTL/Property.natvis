@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="FTL::Property&lt;*, *, *, *, 1, *&gt;">
+    <DisplayString>value : {autoGen.value}</DisplayString>
+    <Expand>
+      <Item Name="value">autoGen.value</Item>
+    </Expand>
+  </Type>
+</AutoVisualizer>

@@ -34,4 +34,7 @@
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="Property.natvis" />
+  </ItemGroup>
 </Project>

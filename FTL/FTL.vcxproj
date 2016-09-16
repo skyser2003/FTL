@@ -74,6 +74,9 @@
     <ClInclude Include="include\MathVector.h" />
     <ClInclude Include="include\VoidTemplate.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="Property.natvis" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
