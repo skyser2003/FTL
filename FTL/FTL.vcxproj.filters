@@ -13,6 +13,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{a2e8661b-a9da-4ea1-aae8-e0cf6d9ff8d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Natvis">
+      <UniqueIdentifier>{ee6522df-dafb-401b-8324-a62dbf9be1ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\EnumEnumerator.h">
@@ -35,6 +38,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="Property.natvis" />
+    <Natvis Include="Property.natvis">
+      <Filter>Natvis</Filter>
+    </Natvis>
+    <Natvis Include="MathVector.natvis">
+      <Filter>Natvis</Filter>
+    </Natvis>
   </ItemGroup>
 </Project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="FTL::Vector2&lt;*&gt;">
+    <DisplayString>x : {Value[0]}, y : {Value[1]}</DisplayString>
+    <Expand>
+      <Item Name="x">Value[0]</Item>
+      <Item Name="y">Value[1]</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="FTL::Vector3&lt;*&gt;">
+    <DisplayString>x : {Value[0]}, y : {Value[1]}, z : {Value[2]}</DisplayString>
+    <Expand>
+      <Item Name="x">Value[0]</Item>
+      <Item Name="y">Value[1]</Item>
+      <Item Name="z">Value[2]</Item>
+    </Expand>
+  </Type>
+</AutoVisualizer>
