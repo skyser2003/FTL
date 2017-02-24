@@ -234,48 +234,6 @@ namespace FTL
 		PropertyBase(const PropertyBase& rhs) = delete;
 
 		PropertyBase(GetterType getter) : PropertyGetterBase<Type>(getter) {}
-
-		using PropertyGetterBase<Type>::get;
-
-		InterfaceType operator+(const PropertyBase& rhs)
-		{
-			return get() + rhs.get();
-		}
-
-		InterfaceType operator+(InterfaceType rhs)
-		{
-			return get() + rhs;
-		}
-
-		InterfaceType operator-(const PropertyBase& rhs)
-		{
-			return get() - rhs.get();
-		}
-
-		InterfaceType operator-(InterfaceType rhs)
-		{
-			return get() - rhs;
-		}
-
-		InterfaceType operator*(const PropertyBase& rhs)
-		{
-			return get() * rhs.get();
-		}
-
-		InterfaceType operator*(InterfaceType rhs)
-		{
-			return get() * rhs;
-		}
-
-		InterfaceType operator/(const PropertyBase& rhs)
-		{
-			return get() / rhs.get();
-		}
-
-		InterfaceType operator/(InterfaceType rhs)
-		{
-			return get() / rhs;
-		}
 	};
 
 	// Base class setter only specialization
@@ -316,46 +274,6 @@ namespace FTL
 		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterBase<Type>(getter), PropertySetterBase<Type>(setter) {}
 
 		using PropertyGetterBase<Type>::get;
-
-		InterfaceType operator+(const PropertyBase& rhs) const
-		{
-			return get() + rhs.get();
-		}
-
-		InterfaceType operator+(InterfaceType rhs) const
-		{
-			return get() + rhs;
-		}
-
-		InterfaceType operator-(const PropertyBase& rhs) const
-		{
-			return get() - rhs.get();
-		}
-
-		InterfaceType operator-(InterfaceType rhs) const
-		{
-			return get() - rhs;
-		}
-
-		InterfaceType operator*(const PropertyBase& rhs) const
-		{
-			return get() * rhs.get();
-		}
-
-		InterfaceType operator*(InterfaceType rhs) const
-		{
-			return get() * rhs;
-		}
-
-		InterfaceType operator/(const PropertyBase& rhs) const
-		{
-			return get() / rhs.get();
-		}
-
-		InterfaceType operator/(InterfaceType rhs) const
-		{
-			return get() / rhs;
-		}
 
 		InterfaceType operator+=(const PropertyBase& rhs)
 		{
