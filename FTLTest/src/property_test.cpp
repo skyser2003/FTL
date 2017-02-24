@@ -189,6 +189,25 @@ namespace FTLTest
 			// Assert::AreEqual(6, cls.so.get()); // Compile error
 		}
 
+		TEST_METHOD(PropertyTest6)
+		{
+			FTLTest::TestClass cls;
+			cls.Test();
+
+			Assert::AreEqual(false, cls.defaultProp.isPointer);
+			Assert::AreEqual(false, cls.prop1.isPointer);
+			Assert::AreEqual(false, cls.prop2.isPointer);
+			Assert::AreEqual(false, cls.prop3.isPointer);
+			Assert::AreEqual(false, cls.prop4.isPointer);
+
+			Assert::AreEqual(true, cls.pDefaultProp.isPointer);
+			Assert::AreEqual(true, cls.pProp1.isPointer);
+			Assert::AreEqual(true, cls.pProp2.isPointer);
+			Assert::AreEqual(true, cls.pProp3.isPointer);
+			Assert::AreEqual(true, cls.pProp4.isPointer);
+			Assert::AreEqual(true, cls.smptrProp.isPointer);
+		}
+
 	private:
 		template <class T>
 		constexpr bool IsGetterPrivate(const T&, ...) const
