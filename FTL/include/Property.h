@@ -213,6 +213,73 @@ namespace FTL
 		SetterType setter;
 	};
 
+	// Getter & Setter base class
+	template <class Type, bool isPointer = IsPointer<Type>::value>
+	class PropertyGetterSetterBase : public PropertyGetterBase<Type, isPointer>, public PropertySetterBase<Type>
+	{
+	public:
+		using InterfaceType = typename PropertyInterfaceType<Type>::Type;
+
+		using GetterType = typename PropertyGetterBase<Type>::GetterType;
+		using SetterType = typename PropertySetterBase<Type>::SetterType;
+
+	protected:
+		PropertyGetterSetterBase(GetterType getter, SetterType setter)
+			: PropertyGetterBase<Type>(getter), PropertySetterBase<Type>(setter) {}
+
+		InterfaceType operator+=(const PropertyGetterSetterBase& rhs)
+		{
+			return operator+=(rhs.get());
+		}
+
+		InterfaceType operator+=(InterfaceType rhs)
+		{
+			InterfaceType ret = get() + rhs;
+			this->setter(ret);
+
+			return ret;
+		}
+
+		InterfaceType operator-=(const PropertyGetterSetterBase& rhs)
+		{
+			return operator-=(rhs.get());
+		}
+
+		InterfaceType operator-=(InterfaceType rhs)
+		{
+			InterfaceType ret = get() - rhs;
+			this->setter(ret);
+
+			return ret;
+		}
+
+		InterfaceType operator*=(const PropertyGetterSetterBase& rhs)
+		{
+			return operator*=(rhs.get());
+		}
+
+		InterfaceType operator*=(InterfaceType rhs)
+		{
+			InterfaceType ret = get() * rhs;
+			this->setter(ret);
+
+			return ret;
+		}
+
+		InterfaceType operator/=(const PropertyGetterSetterBase& rhs)
+		{
+			return operator/=(rhs.get());
+		}
+
+		InterfaceType operator/=(InterfaceType rhs)
+		{
+			InterfaceType ret = get() / rhs;
+			this->setter(ret);
+
+			return ret;
+		}
+	};
+
 	// Base class
 	template <class Type, PropertyAccessorSaveType AccSaveType>
 	class PropertyBase;
@@ -257,7 +324,7 @@ namespace FTL
 
 	// Base class both specialization
 	template <class Type>
-	class PropertyBase<Type, PropertyAccessorSaveType::Both> : public PropertyGetterBase<Type>, public PropertySetterBase<Type>
+	class PropertyBase<Type, PropertyAccessorSaveType::Both> : public PropertyGetterSetterBase<Type>
 	{
 	public:
 		static const bool isPointer = IsPointer<Type>::value;
@@ -271,73 +338,7 @@ namespace FTL
 		PropertyBase() = delete;
 		PropertyBase(const PropertyBase& rhs) = delete;
 
-		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterBase<Type>(getter), PropertySetterBase<Type>(setter) {}
-
-		using PropertyGetterBase<Type>::get;
-
-		InterfaceType operator+=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() + rhs.get();
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator+=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() + rhs;
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator-=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() - rhs.get();
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator-=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() - rhs;
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator*=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() * rhs.get();
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator*=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() * rhs;
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator/=(const PropertyBase& rhs)
-		{
-			InterfaceType ret = get() / rhs.get();
-			this->setter(ret);
-
-			return ret;
-		}
-
-		InterfaceType operator/=(InterfaceType rhs)
-		{
-			InterfaceType ret = get() / rhs;
-			this->setter(ret);
-
-			return ret;
-		}
+		PropertyBase(GetterType getter, SetterType setter) : PropertyGetterSetterBase<Type>(getter, setter) {}
 	};
 
 	// Constructor
