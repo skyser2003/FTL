@@ -73,6 +73,9 @@ namespace FTL
 
 		using GetterType = std::function<InterfaceType(void)>;
 
+		PropertyGetterBase() = delete;
+		PropertyGetterBase(const PropertyGetterBase& rhs) = delete;
+
 	protected:
 		PropertyGetterBase(GetterType getter) : getter(getter) {}
 
@@ -149,6 +152,9 @@ namespace FTL
 
 		using GetterType = std::function<InterfaceType(void)>;
 
+		PropertyGetterBase() = delete;
+		PropertyGetterBase(const PropertyGetterBase& rhs) = delete;
+
 	protected:
 		PropertyGetterBase(GetterType getter) : getter(getter) {}
 
@@ -200,6 +206,9 @@ namespace FTL
 
 		using SetterType = std::function<void(InterfaceType)>;
 
+		PropertySetterBase() = delete;
+		PropertySetterBase(const PropertySetterBase& rhs) = delete;
+
 	protected:
 		PropertySetterBase(SetterType setter) : setter(setter) {}
 
@@ -222,6 +231,9 @@ namespace FTL
 
 		using GetterType = typename PropertyGetterBase<Type>::GetterType;
 		using SetterType = typename PropertySetterBase<Type>::SetterType;
+
+		PropertyGetterSetterBase() = delete;
+		PropertyGetterSetterBase(const PropertyGetterSetterBase& rhs) = delete;
 
 	protected:
 		PropertyGetterSetterBase(GetterType getter, SetterType setter)
