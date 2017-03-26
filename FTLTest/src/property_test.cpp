@@ -216,7 +216,7 @@ namespace FTLTest
 		}
 
 		template <class T>
-		constexpr bool IsGetterPrivate(const T&, decltype(typename declval<T>().operator T::InterfaceType())* ptr) const
+		constexpr bool IsGetterPrivate(const T&, decltype(declval<T>().operator typename T::InterfaceType())* ptr) const
 		{
 			return false;
 		}
