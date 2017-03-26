@@ -16,6 +16,9 @@
     <Filter Include="Natvis">
       <UniqueIdentifier>{ee6522df-dafb-401b-8324-a62dbf9be1ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inheritance">
+      <UniqueIdentifier>{c6c81413-b2bf-4087-a5d2-f59a7583c6d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\EnumEnumerator.h">
@@ -35,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="include\MathVector.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InheritanceAccessibility.h">
+      <Filter>Inheritance</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

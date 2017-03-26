@@ -102,6 +102,7 @@
     </ClCompile>
     <ClCompile Include="src\pointer_test.cpp" />
     <ClCompile Include="src\property_test.cpp" />
+    <ClCompile Include="src\accessibility_test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

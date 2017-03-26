@@ -45,5 +45,8 @@
     <ClCompile Include="src\mathvector_test.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="src\accessibility_test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
