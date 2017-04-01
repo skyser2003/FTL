@@ -216,13 +216,13 @@ namespace FTLTest
 		class IsGetterPrivateCls : public true_type {};
 
 		template <class T>
-		class IsGetterPrivateCls<T, VoidTemplate<decltype(declval<T>().get())>> : public false_type {};
+		class IsGetterPrivateCls<T, void_t<decltype(declval<T>().get())>> : public false_type {};
 
 		template <class T, class = void>
 		class IsSetterPrivateCls : public true_type {};
 
 		template <class T>
-		class IsSetterPrivateCls<T, VoidTemplate<decltype(declval<T>().operator=(typename T::InterfaceType()))>> : public false_type {};
+		class IsSetterPrivateCls<T, void_t<decltype(declval<T>().operator=(typename T::InterfaceType()))>> : public false_type {};
 
 		template <class T>
 		constexpr bool IsGetterPrivate(const T&)

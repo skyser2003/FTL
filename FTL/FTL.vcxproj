@@ -73,7 +73,6 @@
     <ClInclude Include="include\PointerDataType.h" />
     <ClInclude Include="include\Property.h" />
     <ClInclude Include="include\MathVector.h" />
-    <ClInclude Include="include\VoidTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="natvis\MathVector.natvis" />
