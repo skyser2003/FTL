@@ -12,6 +12,9 @@ namespace FTLTest
 	class TestClass
 	{
 	public:
+		friend class PropertyTest;
+
+	public:
 		// Value
 		Property<TestClass, int, false, false, PropertyType::AutoGen> defaultProp;
 
@@ -77,30 +80,30 @@ namespace FTLTest
 			cls.Test();
 
 			// Getter privateness
-			Assert::AreEqual(false, IsGetterPrivate(cls.defaultProp, nullptr));
-			Assert::AreEqual(true, IsGetterPrivate(cls.prop1, nullptr));
-			Assert::AreEqual(false, IsGetterPrivate(cls.prop2, nullptr));
-			Assert::AreEqual(true, IsGetterPrivate(cls.prop3, nullptr));
-			Assert::AreEqual(false, IsGetterPrivate(cls.prop4, nullptr));
+			Assert::AreEqual(false, IsGetterPrivate(cls.defaultProp));
+			Assert::AreEqual(true, IsGetterPrivate(cls.prop1));
+			Assert::AreEqual(false, IsGetterPrivate(cls.prop2));
+			Assert::AreEqual(true, IsGetterPrivate(cls.prop3));
+			Assert::AreEqual(false, IsGetterPrivate(cls.prop4));
 
-			Assert::AreEqual(false, IsGetterPrivate(cls.pDefaultProp, nullptr));
-			Assert::AreEqual(true, IsGetterPrivate(cls.pProp1, nullptr));
-			Assert::AreEqual(false, IsGetterPrivate(cls.pProp2, nullptr));
-			Assert::AreEqual(true, IsGetterPrivate(cls.pProp3, nullptr));
-			Assert::AreEqual(false, IsGetterPrivate(cls.pProp4, nullptr));
+			Assert::AreEqual(false, IsGetterPrivate(cls.pDefaultProp));
+			Assert::AreEqual(true, IsGetterPrivate(cls.pProp1));
+			Assert::AreEqual(false, IsGetterPrivate(cls.pProp2));
+			Assert::AreEqual(true, IsGetterPrivate(cls.pProp3));
+			Assert::AreEqual(false, IsGetterPrivate(cls.pProp4));
 
 			// Setter privateness
-			Assert::AreEqual(false, IsSetterPrivate(cls.defaultProp, nullptr));
-			Assert::AreEqual(true, IsSetterPrivate(cls.prop1, nullptr));
-			Assert::AreEqual(true, IsSetterPrivate(cls.prop2, nullptr));
-			Assert::AreEqual(false, IsSetterPrivate(cls.prop3, nullptr));
-			Assert::AreEqual(false, IsSetterPrivate(cls.prop4, nullptr));
+			Assert::AreEqual(false, IsSetterPrivate(cls.defaultProp));
+			Assert::AreEqual(true, IsSetterPrivate(cls.prop1));
+			Assert::AreEqual(true, IsSetterPrivate(cls.prop2));
+			Assert::AreEqual(false, IsSetterPrivate(cls.prop3));
+			Assert::AreEqual(false, IsSetterPrivate(cls.prop4));
 
-			Assert::AreEqual(false, IsSetterPrivate(cls.pDefaultProp, nullptr));
-			Assert::AreEqual(true, IsSetterPrivate(cls.pProp1, nullptr));
-			Assert::AreEqual(true, IsSetterPrivate(cls.pProp2, nullptr));
-			Assert::AreEqual(false, IsSetterPrivate(cls.pProp3, nullptr));
-			Assert::AreEqual(false, IsSetterPrivate(cls.pProp4, nullptr));
+			Assert::AreEqual(false, IsSetterPrivate(cls.pDefaultProp));
+			Assert::AreEqual(true, IsSetterPrivate(cls.pProp1));
+			Assert::AreEqual(true, IsSetterPrivate(cls.pProp2));
+			Assert::AreEqual(false, IsSetterPrivate(cls.pProp3));
+			Assert::AreEqual(false, IsSetterPrivate(cls.pProp4));
 		}
 
 		TEST_METHOD(PropertyTest2)
@@ -209,37 +212,28 @@ namespace FTLTest
 		}
 
 	private:
-		template <class T>
-		constexpr bool IsGetterPrivate(const T&, ...) const
-		{
-			return true;
-		}
-
-		template <class T>
-		constexpr bool IsGetterPrivate(const T&, decltype(declval<T>().operator typename T::InterfaceType())* ptr) const
-		{
-			return false;
-		}
-
-		template <class T>
-		constexpr bool IsSetterPrivate(T&, ...) const
-		{
-			return true;
-		}
-
-		template <class T>
-		constexpr bool IsSetterPrivate(T& val, decltype(val = typename T::InterfaceType())* ptr) const
-		{
-			return false;
-		}
-
-		// Sealed due to Visual Studio C++ compiler's bug.  Works well on clang.
-		/*
 		template <class T, class = void>
-		class IsGetterPrivate : public true_type {};
+		class IsGetterPrivateCls : public true_type {};
 
 		template <class T>
-		class IsGetterPrivate<T, VoidTemplate<decltype(typename declval<T>().operator T::Type())>> : public false_type {};
-		*/
+		class IsGetterPrivateCls<T, VoidTemplate<decltype(declval<T>().get())>> : public false_type {};
+
+		template <class T, class = void>
+		class IsSetterPrivateCls : public true_type {};
+
+		template <class T>
+		class IsSetterPrivateCls<T, VoidTemplate<decltype(declval<T>().operator=(typename T::InterfaceType()))>> : public false_type {};
+
+		template <class T>
+		constexpr bool IsGetterPrivate(const T&)
+		{
+			return typename IsGetterPrivateCls<T>::value;
+		}
+
+		template <class T>
+		constexpr bool IsSetterPrivate(const T&)
+		{
+			return typename IsSetterPrivateCls<T>::value;
+		}
 	};
 }
