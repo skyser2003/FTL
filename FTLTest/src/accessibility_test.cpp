@@ -56,14 +56,11 @@ namespace FTLTest
 	public:
 		TEST_METHOD(AccessibilityTest1)
 		{
-			InheritanceAccessiblity<false_type, Pri, true_type, Pub> p1;
-			InheritanceAccessiblity<true_type, Pub, false_type, Pri> p2;
+			InheritanceAccessiblity<false, Pri> p1;
+			InheritanceAccessiblity<true, Pub> p2;
 
-			Assert::AreEqual(true, CheckPublic(p1));
 			Assert::AreEqual(false, CheckPrivate(p1));
-
 			Assert::AreEqual(true, CheckPublic(p2));
-			Assert::AreEqual(false, CheckPrivate(p2));
 		}
 	};
 }
