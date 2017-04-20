@@ -104,7 +104,7 @@ namespace FTL
 		}
 
 	protected:
-		GetterType getter;
+		const GetterType getter;
 	};
 
 	// Pointer getter
@@ -145,7 +145,7 @@ namespace FTL
 		}
 
 	protected:
-		GetterType getter;
+		const GetterType getter;
 	};
 
 	// Setter base class
@@ -175,7 +175,7 @@ namespace FTL
 		}
 
 	protected:
-		SetterType setter;
+		const SetterType setter;
 	};
 
 	// Pointer setter
@@ -209,8 +209,8 @@ namespace FTL
 		}
 
 	protected:
-		SetterType setter;
-		ValueSetterType valueSetter;
+		const SetterType setter;
+		const ValueSetterType valueSetter;
 	};
 
 	// Getter & Setter base class
