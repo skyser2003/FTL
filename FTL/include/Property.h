@@ -15,7 +15,11 @@ namespace FTL
 	};
 
 	// Return type specialization
-	template <class Type, bool isReference = std::is_fundamental_v<std::remove_reference_t<Type>> == false && IsPointer<Type>::value == false>
+	template <class Type,
+		bool isReference =
+		std::is_fundamental_v<std::remove_reference_t<Type>> == false &&
+		std::is_enum_v<Type> == false &&
+		IsPointer<Type>::value == false>
 	class PropertyInterfaceType;
 
 	template <class _Type>
