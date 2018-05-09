@@ -68,6 +68,6 @@ namespace FTLTest
 		}
 
 	private:
-		FTL::Property<MathVectorTest, FTL::Vector3f, false, false, PropertyType::AutoGen> Pos;
+		FTL::Property<MathVectorTest, FTL::Vector3f, PropertyType::AutoGen, false, false> Pos;
 	};
 }

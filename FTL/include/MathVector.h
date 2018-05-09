@@ -12,9 +12,9 @@ namespace FTL
 	public:
 		static constexpr int Dimension = _Dimension;
 
-		Property<Vector, ValueType, false, false, PropertyType::AutoGen> Value[Dimension];
+		Property<Vector, ValueType, PropertyType::AutoGen, false, false> Value[Dimension];
 
-		Property<Vector, float, false, true, PropertyType::GetterOnly> Magnitude
+		Property<Vector, float, PropertyType::GetterOnly, false> Magnitude
 		{
 			[this]()
 			{
@@ -202,13 +202,13 @@ namespace FTL
 			Set(x, y);
 		}
 
-		Property<Vector2, ValueType, false, false, PropertyType::Manual> X
+		Property<Vector2, ValueType, PropertyType::Manual, false, false> X
 		{
 			[this]() -> ValueType { return this->Value[0]; },
 			[this](ValueType value) { this->Value[0] = value; }
 		};
 
-		Property<Vector2, ValueType, false, false, PropertyType::Manual> Y
+		Property<Vector2, ValueType, PropertyType::Manual, false, false> Y
 		{
 			[this]() -> ValueType { return this->Value[1]; },
 			[this](ValueType value) { this->Value[1] = value; }
@@ -246,19 +246,19 @@ namespace FTL
 			Set(x, y, z);
 		}
 
-		Property<Vector3, ValueType, false, false, PropertyType::Manual> X
+		Property<Vector3, ValueType, PropertyType::Manual, false, false> X
 		{
 			[this]() -> ValueType { return this->Value[0]; },
 			[this](ValueType value) { this->Value[0] = value; }
 		};
 
-		Property<Vector3, ValueType, false, false, PropertyType::Manual> Y
+		Property<Vector3, ValueType, PropertyType::Manual, false, false> Y
 		{
 			[this]() -> ValueType { return this->Value[1]; },
 			[this](ValueType value) { this->Value[1] = value; }
 		};
 
-		Property<Vector3, ValueType, false, false, PropertyType::Manual> Z
+		Property<Vector3, ValueType, PropertyType::Manual, false, false> Z
 		{
 			[this]() -> ValueType { return this->Value[2]; },
 			[this](ValueType value) { this->Value[2] = value; }

@@ -460,11 +460,11 @@ namespace FTL
 	};
 
 	// Constructor
-	template <class Type, bool isGetterPrivate, bool isSetterPrivate, PropertyType PropType>
+	template <class Type, PropertyType PropType, auto...>
 	class PropertyConstructor;
 
-	template <class Type, bool isGetterPrivate, bool isSetterPrivate>
-	class PropertyConstructor<Type, isGetterPrivate, isSetterPrivate, PropertyType::GetterOnly>
+	template <class Type, bool isGetterPrivate>
+	class PropertyConstructor<Type, PropertyType::GetterOnly, isGetterPrivate>
 		: public InheritanceAccessiblity<!isGetterPrivate, PropertyGetterBase<Type>>
 	{
 	public:
@@ -473,8 +473,8 @@ namespace FTL
 		using Parent::Parent;
 	};
 
-	template <class Type, bool isGetterPrivate, bool isSetterPrivate>
-	class PropertyConstructor<Type, isGetterPrivate, isSetterPrivate, PropertyType::SetterOnly>
+	template <class Type, bool isSetterPrivate>
+	class PropertyConstructor<Type, PropertyType::SetterOnly, isSetterPrivate>
 		: public InheritanceAccessiblity<!isSetterPrivate, PropertySetterBase<Type>>
 	{
 	public:
@@ -485,7 +485,7 @@ namespace FTL
 	};
 
 	template <class Type, bool isGetterPrivate, bool isSetterPrivate>
-	class PropertyConstructor<Type, isGetterPrivate, isSetterPrivate, PropertyType::Manual>
+	class PropertyConstructor<Type, PropertyType::Manual, isGetterPrivate, isSetterPrivate>
 		: public PropertyGetterSetterBase<Type, isGetterPrivate, isSetterPrivate>
 	{
 	public:
@@ -496,7 +496,7 @@ namespace FTL
 	};
 
 	template <class Type, bool isGetterPrivate, bool isSetterPrivate>
-	class PropertyConstructor<Type, isGetterPrivate, isSetterPrivate, PropertyType::AutoGen>
+	class PropertyConstructor<Type, PropertyType::AutoGen, isGetterPrivate, isSetterPrivate>
 		: public PropertyConstructorAutogen<Type, isGetterPrivate, isSetterPrivate>
 	{
 	public:
@@ -507,16 +507,65 @@ namespace FTL
 	};
 
 	// Property declare
-	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, PropertyType PropType>
+	template <class OwnerClass, class Type, PropertyType PropType, auto...>
 	class Property;
 
-	// Setter public
-	template <class OwnerClass, class Type, bool isGetterPrivate, PropertyType PropType>
-	class Property<OwnerClass, Type, isGetterPrivate, false, PropType>
-		: public PropertyConstructor<Type, isGetterPrivate, false, PropType>
+	// Getter only
+	template <class OwnerClass, class Type, bool isGetterPrivate>
+	class Property<OwnerClass, Type, PropertyType::GetterOnly, isGetterPrivate>
+		: public PropertyConstructor<Type, PropertyType::GetterOnly, isGetterPrivate>
 	{
 	private:
-		using Parent = PropertyConstructor<Type, isGetterPrivate, false, PropType>;
+		using Parent = PropertyConstructor<Type, PropertyType::GetterOnly, isGetterPrivate>;
+
+	public:
+		friend OwnerClass;
+
+		using Parent::Parent;
+		using Parent::operator=;
+	};
+
+	// Setter only & public
+	template <class OwnerClass, class Type>
+	class Property<OwnerClass, Type, PropertyType::SetterOnly, false>
+		: public PropertyConstructor<Type, PropertyType::SetterOnly, false>
+	{
+	private:
+		using Parent = PropertyConstructor<Type, PropertyType::SetterOnly, false>;
+
+	public:
+		friend OwnerClass;
+
+		using Parent::Parent;
+		using Parent::operator=;
+	};
+
+	// Setter only & private
+	template <class OwnerClass, class Type>
+	class Property<OwnerClass, Type, PropertyType::SetterOnly, true>
+		: public PropertyConstructor<Type, PropertyType::SetterOnly, true>
+	{
+	private:
+		using Parent = PropertyConstructor<Type, PropertyType::SetterOnly, true>;
+
+	public:
+		friend OwnerClass;
+
+		using Parent::Parent;
+
+	private:
+		using Parent::operator=;
+	};
+
+	// Autogen & Manual
+
+	// Setter public
+	template <class OwnerClass, class Type, PropertyType PropType, bool isGetterPrivate>
+	class Property<OwnerClass, Type, PropType, isGetterPrivate, false>
+		: public PropertyConstructor<Type, PropType, isGetterPrivate, false>
+	{
+	private:
+		using Parent = PropertyConstructor<Type, PropType, isGetterPrivate, false>;
 
 	public:
 		friend OwnerClass;
@@ -526,12 +575,12 @@ namespace FTL
 	};
 
 	// Setter private
-	template <class OwnerClass, class Type, bool isGetterPrivate, PropertyType PropType>
-	class Property<OwnerClass, Type, isGetterPrivate, true, PropType>
-		: public PropertyConstructor<Type, isGetterPrivate, true, PropType>
+	template <class OwnerClass, class Type, PropertyType PropType, bool isGetterPrivate>
+	class Property<OwnerClass, Type, PropType, isGetterPrivate, true>
+		: public PropertyConstructor<Type, PropType, isGetterPrivate, true>
 	{
 	private:
-		using Parent = PropertyConstructor<Type, isGetterPrivate, true, PropType>;
+		using Parent = PropertyConstructor<Type, PropType, isGetterPrivate, true>;
 
 	public:
 		friend OwnerClass;

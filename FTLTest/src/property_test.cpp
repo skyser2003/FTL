@@ -9,8 +9,8 @@ using namespace FTL;
 
 namespace FTLTest
 {
-	template <class OwnerClass, class Type, bool isGetterPrivate, bool isSetterPrivate, PropertyType PropType>
-	using PROP = Property<OwnerClass, Type, isGetterPrivate, isSetterPrivate, PropType>;
+	template <class OwnerClass, class Type, PropertyType PropType, auto... args>
+	using PROP = Property<OwnerClass, Type, PropType, args...>;
 
 	class TestClass
 	{
@@ -19,53 +19,53 @@ namespace FTLTest
 
 	public:
 		// Value
-		PROP<TestClass, int, false, false, PropertyType::AutoGen> defaultProp;
+		PROP<TestClass, int, PropertyType::AutoGen, false, false> defaultProp;
 
-		PROP<TestClass, int, true, true, PropertyType::Manual> prop1{ [this]() { return innerI1; }, [this](int val) { innerI1 = val * val; } };
-		PROP<TestClass, int, false, true, PropertyType::Manual> prop2{ [this]() { return innerI2; }, [this](int val) { innerI2 = val * val; } };
-		PROP<TestClass, int, true, false, PropertyType::Manual> prop3{ [this]() { return innerI3; }, [this](int val) { innerI3 = val * val; } };
-		PROP<TestClass, int, false, false, PropertyType::Manual> prop4{ [this]() { return innerI4; }, [this](int val) { innerI4 = val * val; } };
+		PROP<TestClass, int, PropertyType::Manual, true, true> prop1{ [this]() { return innerI1; }, [this](int val) { innerI1 = val * val; } };
+		PROP<TestClass, int, PropertyType::Manual, false, true> prop2{ [this]() { return innerI2; }, [this](int val) { innerI2 = val * val; } };
+		PROP<TestClass, int, PropertyType::Manual, true, false> prop3{ [this]() { return innerI3; }, [this](int val) { innerI3 = val * val; } };
+		PROP<TestClass, int, PropertyType::Manual, false, false> prop4{ [this]() { return innerI4; }, [this](int val) { innerI4 = val * val; } };
 
 		int innerI1, innerI2, innerI3, innerI4;
 
 		int *pD, *p1, *p2, *p3, *p4;
 		int pID, pI1, pI2, pI3, pI4;
 
-		PROP<TestClass, int*, false, false, PropertyType::AutoGen> pDefaultProp{ pD };
+		PROP<TestClass, int*, PropertyType::AutoGen, false, false> pDefaultProp{ pD };
 
-		PROP<TestClass, int*, true, true, PropertyType::Manual> pProp1{
+		PROP<TestClass, int*, PropertyType::Manual, true, true> pProp1{
 			[this]() { return p1; },
 			[this](int* val) { p1 = val; },
 			[this](int val) { *p1 = val; } };
 
-		PROP<TestClass, int*, false, true, PropertyType::Manual> pProp2{
+		PROP<TestClass, int*, PropertyType::Manual, false, true> pProp2{
 			[this]() { return p2; },
 			[this](int* val) { p2 = val; },
 			[this](int val) { *p2 = val; } };
 
-		PROP<TestClass, int*, true, false, PropertyType::Manual> pProp3{
+		PROP<TestClass, int*, PropertyType::Manual, true, false> pProp3{
 			[this]() { return p3; },
 			[this](int* val) { p3 = val; },
 			[this](int val) { *p3 = val; } };
 
-		PROP<TestClass, int*, false, false, PropertyType::Manual> pProp4{
+		PROP<TestClass, int*, PropertyType::Manual, false, false> pProp4{
 			[this]() { return p4; },
 			[this](int* val) { p4 = val; },
 			[this](int val) { *p4 = val; } };
 
 		// Pointer
-		PROP<TestClass, int*, false, false, PropertyType::AutoGen> ptrProp;
+		PROP<TestClass, int*, PropertyType::AutoGen, false, false> ptrProp;
 
 		// Smart Pointer
-		PROP<TestClass, shared_ptr<int>, false, false, PropertyType::AutoGen> smptrProp;
+		PROP<TestClass, shared_ptr<int>, PropertyType::AutoGen, false, false> smptrProp;
 
 		// Getter only
 		int goInnerValue;
-		PROP<TestClass, int, false, false, PropertyType::GetterOnly> go{ [this]() { return goInnerValue; } };
+		PROP<TestClass, int, PropertyType::GetterOnly, false> go{ [this]() { return goInnerValue; } };
 
 		// Setter only
 		int soInnerValue;
-		PROP<TestClass, int, false, false, PropertyType::SetterOnly> so{ [this](int value) { soInnerValue = value; } };
+		PROP<TestClass, int, PropertyType::SetterOnly, false> so{ [this](int value) { soInnerValue = value; } };
 
 		void Test()
 		{
