@@ -36,3 +36,4 @@
 *.ipch
 *.VC.opendb
 *.VC.db
+.vs/
