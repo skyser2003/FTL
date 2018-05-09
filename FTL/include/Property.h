@@ -26,14 +26,14 @@ namespace FTL
 	class PropertyInterfaceType<_Type, false>
 	{
 	public:
-		typedef std::remove_reference_t<_Type> Type;
+		using Type = std::remove_reference_t<_Type>;
 	};
 
 	template <class _Type>
 	class PropertyInterfaceType<_Type, true>
 	{
 	public:
-		typedef _Type& Type;
+		using Type = _Type&;
 	};
 
 	// Getter base class
