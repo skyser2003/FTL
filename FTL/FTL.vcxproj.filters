@@ -19,6 +19,9 @@
     <Filter Include="Inheritance">
       <UniqueIdentifier>{c6c81413-b2bf-4087-a5d2-f59a7583c6d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Functional">
+      <UniqueIdentifier>{2ce51f49-7288-434b-92e5-1859f84eed61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\EnumEnumerator.h">
@@ -38,6 +41,9 @@
     </ClInclude>
     <ClInclude Include="include\InheritanceAccessibility.h">
       <Filter>Inheritance</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Functional.h">
+      <Filter>Functional</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

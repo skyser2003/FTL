@@ -68,6 +68,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\EnumEnumerator.h" />
+    <ClInclude Include="include\Functional.h" />
     <ClInclude Include="include\InheritanceAccessibility.h" />
     <ClInclude Include="include\IsPointer.h" />
     <ClInclude Include="include\PointerDataType.h" />
